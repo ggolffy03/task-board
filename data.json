@@ -36,6 +36,94 @@
           "subtasks": [],
           "note": "กำลังไล่แก้ UI",
           "updated": "2026-11-01"
+        },
+        {
+          "id": "t-003",
+          "title": "HR Web — หน้าเสร็จแล้ว",
+          "column": "เสร็จ",
+          "description": "",
+          "progress": 100,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["hr-web"],
+          "subtasks": [
+            { "title": "AppShell.vue (sidebar)", "done": true },
+            { "title": "/overview (Dashboard)", "done": true },
+            { "title": "COST OT", "done": true },
+            { "title": "COST OT บริษัท", "done": true },
+            { "title": "ชั่วโมงพนักงาน", "done": true },
+            { "title": "ชั่วโมงตามโครงการ", "done": true },
+            { "title": "/employees ตั้งค่าระบบ (8-tab rail)", "done": true }
+          ],
+          "note": "ขึ้นจริงแล้ว; Add/Edit modal เพิ่งแก้ตรงจริงแล้ว",
+          "updated": "2026-11-01"
+        },
+        {
+          "id": "t-004",
+          "title": "ตั้งค่าระบบ — แท็บย่อย (inline form → popup)",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["hr-web", "ui"],
+          "subtasks": [
+            { "title": "แผนก (DepartmentsTab)", "done": false },
+            { "title": "โปรเจกต์", "done": false },
+            { "title": "ลูกค้า", "done": false },
+            { "title": "ไซต์", "done": false },
+            { "title": "วันหยุด", "done": false },
+            { "title": "ประเภทลา", "done": false },
+            { "title": "งวดเดือน (PeriodsTab)", "done": false },
+            { "title": "ประกาศ", "done": false }
+          ],
+          "note": "แท็บย่อยยังเป็น inline form เดิม ไม่ใช่ popup; PeriodsTab ยังไม่เช็ค, DepartmentsTab ยังไม่ทำ",
+          "updated": "2026-11-01"
+        },
+        {
+          "id": "t-005",
+          "title": "ApprovalsPage (รายการตรวจสอบ)",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["hr-web"],
+          "subtasks": [],
+          "note": "ยังไม่ทำ",
+          "updated": "2026-11-01"
+        },
+        {
+          "id": "t-006",
+          "title": "Daily Input (HR) — ฟีเจอร์ใหม่",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["hr-web"],
+          "subtasks": [],
+          "note": "ยังไม่เริ่ม",
+          "updated": "2026-11-01"
+        },
+        {
+          "id": "t-007",
+          "title": "LIFF (web-liff) — 5 หน้า",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "ต่ำ",
+          "due": null,
+          "tags": ["liff"],
+          "subtasks": [
+            { "title": "check-in", "done": false },
+            { "title": "menu", "done": false },
+            { "title": "history", "done": false },
+            { "title": "daily-input", "done": false },
+            { "title": "requests", "done": false }
+          ],
+          "note": "Phase 4 — ยังไม่เริ่มเลยทั้ง 5 หน้า",
+          "updated": "2026-11-01"
         }
       ]
     },
