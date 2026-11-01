@@ -124,6 +124,28 @@
           ],
           "note": "Phase 4 — ยังไม่เริ่มเลยทั้ง 5 หน้า",
           "updated": "2026-11-01"
+        },
+        {
+          "id": "t-009",
+          "title": "UI — หน้าไม่ตรงตาม ref (8 หน้า)",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["ui", "hr-web"],
+          "subtasks": [
+            { "title": "ตั้งค่าทั่วไป", "done": false },
+            { "title": "ประกาศ", "done": false },
+            { "title": "ตั้งค่าพนักงาน", "done": false },
+            { "title": "ตั้งค่าวันหยุดประจำปี", "done": false },
+            { "title": "ตั้งค่าไซต์งาน", "done": false },
+            { "title": "ตั้งค่าแผนก", "done": false },
+            { "title": "ตั้งค่างวดเดือน", "done": false },
+            { "title": "ตั้งค่าโปรเจกต์และลูกค้า", "done": false }
+          ],
+          "note": "ไล่ Recheck Combo Box ในหน้าต่างๆ",
+          "updated": "2026-11-01"
         }
       ]
     },
