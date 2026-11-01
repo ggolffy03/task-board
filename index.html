@@ -314,8 +314,8 @@
       <h1 id="projTitle">ทุกโปรเจกต์</h1>
       <span class="meta" id="updated"></span>
       <div class="views">
-        <button data-view="dashboard" class="active">Dashboard</button>
-        <button data-view="kanban">Kanban</button>
+        <button data-view="dashboard">Dashboard</button>
+        <button data-view="kanban" class="active">Kanban</button>
         <button data-view="list">List</button>
         <button data-view="timesheet">Timesheet</button>
       </div>
@@ -344,7 +344,7 @@ const TH_MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.�
 
 let DATA = null;
 let currentProject = "all";   // "all" or project id
-let currentView = "dashboard";
+let currentView = "kanban";
 
 /* Timesheet state */
 let tsRange = "week";         // week | day | month
