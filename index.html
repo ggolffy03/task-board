@@ -43,6 +43,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ---------- 3D Wireframe background ---------- */
+  .bg-wireframe { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .4; }
+  .bg-wireframe svg { width: 100%; height: 100%; display: block; }
+  .statusbar, .layout { position: relative; z-index: 1; }
+
   /* ---------- System / Status bar ---------- */
   .statusbar {
     flex-shrink: 0;
@@ -376,6 +381,27 @@
 </style>
 </head>
 <body>
+  <div class="bg-wireframe" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)"/>
+      <g stroke="rgba(255,255,255,0.14)" stroke-width="1" fill="none">
+        <path d="M 0 200 L 120 140 L 120 240 Z"/>
+        <path d="M 120 140 L 240 200 L 240 300 L 120 240 Z"/>
+        <path d="M 240 200 L 120 140"/>
+      </g>
+      <g stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none">
+        <path d="M 720 480 L 800 440 L 800 520 Z"/>
+        <path d="M 800 440 L 880 480 L 880 560 L 800 520 Z"/>
+        <path d="M 880 480 L 800 440"/>
+      </g>
+    </svg>
+  </div>
+
   <div class="statusbar" id="statusbar"></div>
 
   <div class="layout">
