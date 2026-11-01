@@ -135,6 +135,29 @@
       "color": "#3fb950",
       "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
       "tasks": []
+    },
+    {
+      "id": "p-003",
+      "name": "Lemon 8",
+      "category": "work",
+      "description": "",
+      "color": "#e3b341",
+      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "tasks": [
+        {
+          "id": "t-008",
+          "title": "แนะนำการลิงค์กล้อง Android -> Windows",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-01"
+        }
+      ]
     }
   ]
 }
