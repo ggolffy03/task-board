@@ -55,7 +55,7 @@
             { "title": "ชั่วโมงตามโครงการ", "done": true },
             { "title": "/employees ตั้งค่าระบบ (8-tab rail)", "done": true }
           ],
-          "note": "ขึ้นจริงแล้ว; Add/Edit modal เพิ่งแก้ตรงจริงแล้ว",
+          "note": "ขึ้นจริงแล้ว; UI Recheck ผ่านทุกหน้าแล้ว",
           "updated": "2026-11-01"
         },
         {
@@ -103,7 +103,7 @@
           "due": null,
           "tags": ["hr-web"],
           "subtasks": [],
-          "note": "ยังไม่เริ่ม",
+          "note": "มี ref แล้ว รอทำ UI",
           "updated": "2026-11-01"
         },
         {
@@ -145,6 +145,27 @@
             { "title": "ตั้งค่าโปรเจกต์และลูกค้า", "done": false }
           ],
           "note": "ไล่ Recheck Combo Box ในหน้าต่างๆ",
+          "updated": "2026-11-01"
+        },
+        {
+          "id": "t-010",
+          "title": "Report — Render PDF + เปลี่ยนชื่อ + ทดสอบระบบ",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["hr-web", "report"],
+          "subtasks": [
+            { "title": "COST OT By Employee — เปลี่ยนชื่อ", "done": false },
+            { "title": "COST OT By Company — เปลี่ยนชื่อ", "done": false },
+            { "title": "COST OT By Employee — Render PDF", "done": false },
+            { "title": "COST OT By Company — Render PDF", "done": false },
+            { "title": "ชั่วโมงพนักงาน — Render PDF", "done": false },
+            { "title": "ชั่วโมงตามโครงการ — Render PDF", "done": false },
+            { "title": "ทดสอบระบบ (ทุกหน้า recheck แล้ว)", "done": false }
+          ],
+          "note": "UI Recheck แล้วตรงทุกหน้า; ยังไม่ได้ทดสอบระบบ",
           "updated": "2026-11-01"
         }
       ]
