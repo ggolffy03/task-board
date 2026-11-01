@@ -1,10 +1,12 @@
 {
   "updated": "2026-11-01",
   "time_entries": [],
+  "categories": ["work", "life", "college"],
   "projects": [
     {
       "id": "p-001",
       "name": "ASINE HRM",
+      "category": "work",
       "description": "ระบบบริหารทรัพยากรบุคคล (Human Resource Management)",
       "color": "#58a6ff",
       "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
@@ -40,6 +42,7 @@
     {
       "id": "p-002",
       "name": "ASINE MES",
+      "category": "work",
       "description": "ระบบบริหารการผลิต (Manufacturing Execution System)",
       "color": "#3fb950",
       "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
