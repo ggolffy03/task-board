@@ -270,6 +270,35 @@
   .ts-task .pbar { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; margin-top: 6px; }
   .ts-task .pbar span { display: block; height: 100%; border-radius: 999px; }
   .ts-task .log { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- Mobile: hamburger + drawer ---------- */
+  .hamburger {
+    display: none;
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 18px; line-height: 1;
+    flex-shrink: 0;
+  }
+  .hamburger:hover { border-color: var(--accent); }
+  .backdrop {
+    display: none;
+    position: fixed; inset: 0; background: rgba(1,4,9,.6); z-index: 40;
+  }
+  .backdrop.show { display: block; }
+
+  @media (max-width: 768px) {
+    .hamburger { display: block; }
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
+      width: 260px; transform: translateX(-100%); transition: transform .22s ease;
+      box-shadow: 4px 0 24px rgba(0,0,0,.5);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .views { order: 3; width: 100%; margin-left: 0; overflow-x: auto; }
+    .views button { flex: 1; white-space: nowrap; }
+    .content { padding: 12px; }
+    .list-table-wrap { overflow-x: auto; }
+    footer { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -281,6 +310,7 @@
 
   <div class="main">
     <div class="topbar">
+      <button class="hamburger" id="hamburger" aria-label="เมนู">☰</button>
       <h1 id="projTitle">ทุกโปรเจกต์</h1>
       <span class="meta" id="updated"></span>
       <div class="views">
@@ -293,6 +323,8 @@
     <div class="content" id="content"></div>
     <footer>อ่านอย่างเดียว — สั่งงานผ่าน Discord → ผมแก้ <code>data.json</code> → push → หน้าอัปเดตอัตโนมัติ</footer>
   </div>
+
+  <div class="backdrop" id="backdrop"></div>
 
   <div class="overlay hidden" id="overlay">
     <div class="modal" id="modal"></div>
@@ -374,6 +406,19 @@ function fmtDate(d) {
   return `${dd}/${m}/${y}`;
 }
 
+/* ---------- Mobile drawer ---------- */
+const sidebarEl = document.querySelector(".sidebar");
+const backdropEl = document.getElementById("backdrop");
+document.getElementById("hamburger").onclick = () => {
+  sidebarEl.classList.toggle("open");
+  backdropEl.classList.toggle("show");
+};
+function closeDrawer() {
+  sidebarEl.classList.remove("open");
+  backdropEl.classList.remove("show");
+}
+backdropEl.onclick = closeDrawer;
+
 /* ---------- Sidebar ---------- */
 function renderSidebar() {
   const el = document.getElementById("projectList");
@@ -421,6 +466,7 @@ function renderSidebar() {
 }
 
 function refresh() {
+  closeDrawer();
   renderSidebar();
   render();
 }
@@ -564,10 +610,12 @@ function renderList() {
     </tr>`).join("");
 
   document.getElementById("content").innerHTML = `
+    <div class="list-table-wrap">
     <table class="list-table">
       <thead><tr><th>งาน</th><th>สถานะ</th><th>สำคัญ</th><th>กำหนด</th><th>ความคืบหน้า</th><th>แท็ก</th></tr></thead>
       <tbody>${rows || `<tr><td colspan="6" class="empty">— ไม่มีงาน —</td></tr>`}</tbody>
-    </table>`;
+    </table>
+    </div>`;
   bindCards();
 }
 
