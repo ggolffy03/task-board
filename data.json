@@ -245,6 +245,19 @@
           ],
           "note": "ตัวเลือกเครื่องมือ (เลือกใช้ตัวใดตัวหนึ่ง)",
           "updated": "2026-11-01"
+        },
+        {
+          "id": "t-013",
+          "title": "จัดฟอร์แมตข้อความใน Github Page ใหม่",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["github", "format"],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-01"
         }
       ]
     }
