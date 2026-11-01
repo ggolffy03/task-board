@@ -13,7 +13,7 @@
       "tasks": [
         {
           "id": "t-001",
-          "title": "Set up Google Cloud + นำโปรเจกต์ไปรัน",
+          "title": "[Deploy] Setup Google Cloud Run",
           "column": "กำลังทำ",
           "description": "",
           "progress": 0,
@@ -26,7 +26,7 @@
         },
         {
           "id": "t-002",
-          "title": "Redesign UI แอปใหม่หมดทั้งคอมและมือถือ",
+          "title": "[UI] Redesign แอปทั้งคอมและมือถือ",
           "column": "กำลังทำ",
           "description": "",
           "progress": 0,
@@ -39,13 +39,13 @@
         },
         {
           "id": "t-003",
-          "title": "HR Web — หน้าเสร็จแล้ว",
+          "title": "[HR Web] หน้าเสร็จแล้ว",
           "column": "เสร็จ",
           "description": "",
           "progress": 100,
           "priority": "กลาง",
           "due": null,
-          "tags": ["hr-web"],
+          "tags": [],
           "subtasks": [
             { "title": "AppShell.vue (sidebar)", "done": true },
             { "title": "/overview (Dashboard)", "done": true },
@@ -55,18 +55,18 @@
             { "title": "ชั่วโมงตามโครงการ", "done": true },
             { "title": "/employees ตั้งค่าระบบ (8-tab rail)", "done": true }
           ],
-          "note": "ขึ้นจริงแล้ว; UI Recheck ผ่านทุกหน้าแล้ว",
+          "note": "ขึ้นจริงแล้ว; Recheck UI ผ่านทุกหน้า",
           "updated": "2026-11-01"
         },
         {
           "id": "t-004",
-          "title": "ตั้งค่าระบบ — แท็บย่อย (inline form → popup)",
+          "title": "[Settings] ปรับฟอร์มย่อยเป็น Popup",
           "column": "วางแผน",
           "description": "",
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["hr-web", "ui"],
+          "tags": ["ui"],
           "subtasks": [
             { "title": "แผนก (DepartmentsTab)", "done": false },
             { "title": "โปรเจกต์", "done": false },
@@ -77,38 +77,38 @@
             { "title": "งวดเดือน (PeriodsTab)", "done": false },
             { "title": "ประกาศ", "done": false }
           ],
-          "note": "แท็บย่อยยังเป็น inline form เดิม ไม่ใช่ popup; PeriodsTab ยังไม่เช็ค, DepartmentsTab ยังไม่ทำ",
+          "note": "ฟอร์มย่อยยังเป็น inline form เดิม",
           "updated": "2026-11-01"
         },
         {
           "id": "t-005",
-          "title": "ApprovalsPage (รายการตรวจสอบ)",
+          "title": "[Approvals] สร้างหน้ารายการตรวจสอบ",
           "column": "วางแผน",
           "description": "",
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["hr-web"],
+          "tags": [],
           "subtasks": [],
           "note": "ยังไม่ทำ",
           "updated": "2026-11-01"
         },
         {
           "id": "t-006",
-          "title": "Daily Input (HR) — ฟีเจอร์ใหม่",
+          "title": "[Daily Input] พัฒนา UI ตาม ref",
           "column": "วางแผน",
           "description": "",
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["hr-web"],
+          "tags": [],
           "subtasks": [],
           "note": "มี ref แล้ว รอทำ UI",
           "updated": "2026-11-01"
         },
         {
           "id": "t-007",
-          "title": "LIFF (web-liff) — 5 หน้า",
+          "title": "[LIFF] พัฒนา 5 หน้า",
           "column": "วางแผน",
           "description": "",
           "progress": 0,
@@ -122,18 +122,18 @@
             { "title": "daily-input", "done": false },
             { "title": "requests", "done": false }
           ],
-          "note": "Phase 4 — ยังไม่เริ่มเลยทั้ง 5 หน้า",
+          "note": "Phase 4 — ยังไม่เริ่ม",
           "updated": "2026-11-01"
         },
         {
           "id": "t-009",
-          "title": "UI — หน้าไม่ตรงตาม ref (8 หน้า)",
+          "title": "[UI] Recheck Combo Box (8 หน้า)",
           "column": "วางแผน",
           "description": "",
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["ui", "hr-web"],
+          "tags": ["ui"],
           "subtasks": [
             { "title": "ตั้งค่าทั่วไป", "done": false },
             { "title": "ประกาศ", "done": false },
@@ -144,39 +144,39 @@
             { "title": "ตั้งค่างวดเดือน", "done": false },
             { "title": "ตั้งค่าโปรเจกต์และลูกค้า", "done": false }
           ],
-          "note": "ไล่ Recheck Combo Box ในหน้าต่างๆ",
+          "note": "หน้าไม่ตรงตาม ref",
           "updated": "2026-11-01"
         },
         {
           "id": "t-010",
-          "title": "Report — Render PDF + เปลี่ยนชื่อ + ทดสอบระบบ",
+          "title": "[Report] ปรับปรุง PDF & ทดสอบระบบ",
           "column": "วางแผน",
           "description": "",
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["hr-web", "report"],
+          "tags": ["report"],
           "subtasks": [
-            { "title": "COST OT By Employee — เปลี่ยนชื่อ", "done": false },
-            { "title": "COST OT By Company — เปลี่ยนชื่อ", "done": false },
-            { "title": "COST OT By Employee — Render PDF", "done": false },
-            { "title": "COST OT By Company — Render PDF", "done": false },
-            { "title": "ชั่วโมงพนักงาน — Render PDF", "done": false },
-            { "title": "ชั่วโมงตามโครงการ — Render PDF", "done": false },
-            { "title": "ทดสอบระบบ (ทุกหน้า recheck แล้ว)", "done": false }
+            { "title": "เปลี่ยนชื่อ — COST OT By Employee", "done": false },
+            { "title": "เปลี่ยนชื่อ — COST OT By Company", "done": false },
+            { "title": "Render PDF — COST OT By Employee", "done": false },
+            { "title": "Render PDF — COST OT By Company", "done": false },
+            { "title": "Render PDF — ชั่วโมงพนักงาน", "done": false },
+            { "title": "Render PDF — ชั่วโมงตามโครงการ", "done": false },
+            { "title": "ทดสอบระบบ — ทุกหน้า", "done": false }
           ],
           "note": "UI Recheck แล้วตรงทุกหน้า; ยังไม่ได้ทดสอบระบบ",
           "updated": "2026-11-01"
         },
         {
           "id": "t-011",
-          "title": "UI Web HR — อนุมัติคำขอ",
+          "title": "[Approvals] ปรับ UI อนุมัติคำขอ",
           "column": "กำลังทำ",
           "description": "",
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["ui", "hr-web"],
+          "tags": ["ui"],
           "subtasks": [
             { "title": "เพิ่ม Badge แสดงผู้อนุมัติ + เวลา", "done": false },
             { "title": "เปลี่ยนการแสดงผลรายละเอียดเป็น pop up", "done": false },
@@ -208,7 +208,7 @@
       "tasks": [
         {
           "id": "t-008",
-          "title": "แนะนำการลิงค์กล้อง Android -> Windows",
+          "title": "[Camera] ลิงค์กล้อง Android → Windows",
           "column": "วางแผน",
           "description": "",
           "progress": 0,
@@ -216,7 +216,7 @@
           "due": null,
           "tags": [],
           "subtasks": [],
-          "note": "",
+          "note": "ยังไม่เริ่ม",
           "updated": "2026-11-01"
         }
       ]
