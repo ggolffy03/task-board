@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Task Board</title>
+<title>PM Board — Personal Project Management</title>
 <style>
   :root {
     --bg: #0d1117;
@@ -17,164 +17,417 @@
     --doing: #d29922;
     --test: #a371f7;
     --done: #3fb950;
+    --high: #f85149;
+    --mid: #d29922;
+    --low: #8b949e;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Thai", sans-serif;
-    padding: 24px;
-  }
-  header {
+    height: 100vh;
     display: flex;
-    align-items: baseline;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    overflow: hidden;
   }
-  h1 { font-size: 20px; font-weight: 600; }
-  header .meta { color: var(--muted); font-size: 13px; }
-  .board {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    align-items: start;
-  }
-  @media (max-width: 900px) { .board { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .board { grid-template-columns: 1fr; } }
-  .column {
+
+  /* Sidebar */
+  .sidebar {
+    width: 240px;
+    flex-shrink: 0;
     background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px;
-    min-height: 200px;
+    border-right: 1px solid var(--border);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
   }
-  .column-head {
+  .sidebar .brand { font-size: 15px; font-weight: 700; padding: 4px 0 8px; }
+  .sidebar .brand span { color: var(--accent); }
+  .project-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }
-  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .column-head h2 { font-size: 14px; font-weight: 600; }
-  .count {
-    margin-left: auto;
-    background: var(--panel-2);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 12px;
-    padding: 1px 8px;
-    border-radius: 999px;
-  }
-  .card {
-    background: var(--panel-2);
-    border: 1px solid var(--border);
+    padding: 8px 10px;
     border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 10px;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 13px;
+    border: 1px solid transparent;
   }
-  .card .title { font-size: 14px; font-weight: 500; margin-bottom: 6px; word-break: break-word; }
-  .card .note { color: var(--muted); font-size: 12px; margin-bottom: 8px; white-space: pre-wrap; word-break: break-word; }
-  .bar { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
-  .bar > span { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
-  .card .meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; margin-top: 8px; }
+  .project-item:hover { background: var(--panel-2); }
+  .project-item.active { background: var(--panel-2); border-color: var(--border); }
+  .project-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .project-item .count { margin-left: auto; color: var(--muted); font-size: 11px; }
+  .sidebar .hint { margin-top: auto; color: var(--muted); font-size: 11px; line-height: 1.5; }
+
+  /* Main */
+  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+    flex-wrap: wrap;
+  }
+  .topbar h1 { font-size: 16px; font-weight: 600; }
+  .topbar .meta { color: var(--muted); font-size: 12px; }
+  .views { display: flex; gap: 4px; margin-left: auto; background: var(--panel-2); padding: 3px; border-radius: 8px; border: 1px solid var(--border); }
+  .views button {
+    background: none; border: none; color: var(--muted); font-size: 13px;
+    padding: 5px 14px; border-radius: 6px; cursor: pointer; font-family: inherit;
+  }
+  .views button.active { background: var(--accent); color: #04121f; font-weight: 600; }
+
+  .content { flex: 1; overflow-y: auto; padding: 20px; }
+
+  /* Dashboard */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .stat .num { font-size: 24px; font-weight: 700; }
+  .stat .label { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .section-title { font-size: 14px; font-weight: 600; margin: 18px 0 10px; }
+  .proj-row { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+  .proj-row .head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .proj-row .head .name { font-weight: 600; font-size: 14px; }
+  .proj-row .head .sub { color: var(--muted); font-size: 12px; }
+  .due-list { list-style: none; }
+  .due-list li {
+    display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px;
+  }
+  .due-list .when { color: var(--muted); font-size: 12px; margin-left: auto; white-space: nowrap; }
+  .pill { font-size: 11px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
+  .pill.overdue { color: var(--high); border-color: var(--high); }
+  .pill.today { color: var(--mid); border-color: var(--mid); }
+
+  /* Kanban */
+  .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: start; }
+  @media (max-width: 1000px) { .board { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .board { grid-template-columns: 1fr; } }
+  .column { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px; min-height: 200px; }
+  .column-head { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .column-head h2 { font-size: 13px; font-weight: 600; }
+  .column-head .count { margin-left: auto; background: var(--panel-2); border: 1px solid var(--border); color: var(--muted); font-size: 11px; padding: 1px 8px; border-radius: 999px; }
+  .card {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; margin-bottom: 10px; cursor: pointer; transition: border-color .12s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .title { font-size: 13px; font-weight: 500; margin-bottom: 6px; word-break: break-word; }
+  .card .badges { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .badge { font-size: 10px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--border); }
+  .badge.high { color: var(--high); border-color: var(--high); }
+  .badge.mid { color: var(--mid); border-color: var(--mid); }
+  .badge.low { color: var(--low); border-color: var(--low); }
+  .badge.tag { color: var(--muted); }
+  .badge.due { color: var(--test); border-color: var(--test); }
+  .badge.due.overdue { color: var(--high); border-color: var(--high); }
+  .bar { height: 5px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; border-radius: 999px; }
+  .card .meta { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 11px; margin-top: 8px; }
   .empty { color: var(--muted); font-size: 13px; text-align: center; padding: 20px 0; }
-  footer { margin-top: 24px; color: var(--muted); font-size: 12px; }
+
+  /* List view */
+  .list-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .list-table th { text-align: left; color: var(--muted); font-weight: 500; padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 12px; }
+  .list-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); }
+  .list-table tr:hover td { background: var(--panel-2); }
+  .list-table .t-title { font-weight: 500; cursor: pointer; }
+  .list-table .t-title:hover { color: var(--accent); }
+
+  /* Modal */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(1,4,9,.7); display: flex;
+    align-items: center; justify-content: center; z-index: 50; padding: 20px;
+  }
+  .overlay.hidden { display: none; }
+  .modal { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 560px; padding: 20px; max-height: 85vh; overflow-y: auto; }
+  .modal h3 { font-size: 17px; margin-bottom: 4px; word-break: break-word; }
+  .modal .proj-label { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
+  .modal .row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0; }
+  .modal .field { flex: 1; min-width: 140px; }
+  .modal .field .lbl { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 3px; }
+  .modal .field .val { font-size: 14px; }
+  .modal .desc { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 13px; white-space: pre-wrap; margin: 12px 0; }
+  .modal .subtasks { list-style: none; margin-top: 8px; }
+  .modal .subtasks li { display: flex; gap: 8px; align-items: center; padding: 5px 0; font-size: 13px; }
+  .modal .subtasks .chk { color: var(--done); }
+  .modal .subtasks .unchk { color: var(--muted); }
+  .modal .close {
+    margin-top: 16px; width: 100%; padding: 9px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--panel-2); color: var(--text); cursor: pointer; font-size: 13px; font-family: inherit;
+  }
+  .modal .close:hover { border-color: var(--accent); }
+
+  footer { padding: 14px 20px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); background: var(--panel); }
+  footer code { color: var(--text); }
 </style>
 </head>
 <body>
-<header>
-  <h1>📋 Task Board</h1>
-  <span class="meta" id="updated"></span>
-</header>
-<div class="board" id="board"></div>
-<footer>อัปเดตงานผ่าน Discord — ข้อมูลจาก <code>tasks.json</code></footer>
+  <aside class="sidebar">
+    <div class="brand">📋 PM <span>Board</span></div>
+    <div id="projectList"></div>
+    <div class="hint">อัปเดตงานผ่าน Discord<br>ข้อมูลจาก <code>data.json</code></div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1 id="projTitle">ทุกโปรเจกต์</h1>
+      <span class="meta" id="updated"></span>
+      <div class="views">
+        <button data-view="dashboard" class="active">Dashboard</button>
+        <button data-view="kanban">Kanban</button>
+        <button data-view="list">List</button>
+      </div>
+    </div>
+    <div class="content" id="content"></div>
+    <footer>สั่งงานผ่าน Discord → ผมแก้ <code>data.json</code> → push → หน้าอัปเดตอัตโนมัติ</footer>
+  </div>
+
+  <div class="overlay hidden" id="overlay">
+    <div class="modal" id="modal"></div>
+  </div>
 
 <script>
-const COLORS = {
-  "วางแผน": "var(--plan)",
-  "กำลังทำ": "var(--doing)",
-  "รอทดสอบ": "var(--test)",
-  "เสร็จ": "var(--done)"
-};
+const COL_COLORS = { "วางแผน": "var(--plan)", "กำลังทำ": "var(--doing)", "รอทดสอบ": "var(--test)", "เสร็จ": "var(--done)" };
+const PRIO = { "สูง": "high", "กลาง": "mid", "ต่ำ": "low" };
+let DATA = null;
+let currentProject = "all";   // "all" or project id
+let currentView = "dashboard";
 
 async function load() {
-  const res = await fetch("tasks.json", { cache: "no-store" });
-  const data = await res.json();
-  document.getElementById("updated").textContent =
-    "อัปเดตล่าสุด " + (data.updated || "—");
-  render(data);
+  const res = await fetch("data.json", { cache: "no-store" });
+  DATA = await res.json();
+  document.getElementById("updated").textContent = "อัปเดตล่าสุด " + (DATA.updated || "—");
+  renderSidebar();
+  render();
 }
 
-function render(data) {
-  const board = document.getElementById("board");
-  board.innerHTML = "";
-  for (const col of data.columns) {
-    const colEl = document.createElement("div");
-    colEl.className = "column";
-    const tasks = data.tasks.filter(t => t.column === col);
+function allTasks() {
+  return DATA.projects.flatMap(p => p.tasks.map(t => ({ ...t, project: p })));
+}
+function projectTasks(proj) {
+  return proj.tasks.map(t => ({ ...t, project: proj }));
+}
+function visibleProjects() {
+  if (currentProject === "all") return DATA.projects;
+  return DATA.projects.filter(p => p.id === currentProject);
+}
 
-    const head = document.createElement("div");
-    head.className = "column-head";
-    const dot = document.createElement("span");
-    dot.className = "dot";
-    dot.style.background = COLORS[col] || "var(--accent)";
-    const h2 = document.createElement("h2");
-    h2.textContent = col;
-    const count = document.createElement("span");
-    count.className = "count";
-    count.textContent = tasks.length;
-    head.append(dot, h2, count);
-    colEl.appendChild(head);
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+function isOverdue(t) {
+  return t.due && t.due < todayStr() && t.column !== "เสร็จ";
+}
+function fmtDate(d) {
+  if (!d) return "";
+  const [y, m, dd] = d.split("-");
+  return `${dd}/${m}/${y}`;
+}
 
-    if (tasks.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty";
-      empty.textContent = "— ว่าง —";
-      colEl.appendChild(empty);
-    }
+/* ---------- Sidebar ---------- */
+function renderSidebar() {
+  const el = document.getElementById("projectList");
+  el.innerHTML = "";
+  const all = document.createElement("div");
+  all.className = "project-item" + (currentProject === "all" ? " active" : "");
+  all.innerHTML = `<span class="project-dot" style="background:var(--accent)"></span>ทุกโปรเจกต์
+    <span class="count">${allTasks().length}</span>`;
+  all.onclick = () => { currentProject = "all"; refresh(); };
+  el.appendChild(all);
 
-    for (const t of tasks) {
-      const card = document.createElement("div");
-      card.className = "card";
-      const title = document.createElement("div");
-      title.className = "title";
-      title.textContent = t.title;
-      card.appendChild(title);
-
-      if (t.note) {
-        const note = document.createElement("div");
-        note.className = "note";
-        note.textContent = t.note;
-        card.appendChild(note);
-      }
-
-      if (t.progress > 0) {
-        const bar = document.createElement("div");
-        bar.className = "bar";
-        const span = document.createElement("span");
-        span.style.width = t.progress + "%";
-        bar.appendChild(span);
-        card.appendChild(bar);
-      }
-
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      const pct = document.createElement("span");
-      pct.textContent = t.progress > 0 ? t.progress + "%" : "";
-      const date = document.createElement("span");
-      date.textContent = t.updated || "";
-      meta.append(pct, date);
-      card.appendChild(meta);
-
-      colEl.appendChild(card);
-    }
-
-    board.appendChild(colEl);
+  for (const p of DATA.projects) {
+    const item = document.createElement("div");
+    item.className = "project-item" + (currentProject === p.id ? " active" : "");
+    item.innerHTML = `<span class="project-dot" style="background:${p.color}"></span>${p.name}
+      <span class="count">${p.tasks.length}</span>`;
+    item.onclick = () => { currentProject = p.id; refresh(); };
+    el.appendChild(item);
   }
 }
+
+function refresh() {
+  renderSidebar();
+  render();
+}
+
+/* ---------- Top bar ---------- */
+document.querySelectorAll(".views button").forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll(".views button").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    currentView = b.dataset.view;
+    render();
+  };
+});
+
+/* ---------- Render dispatcher ---------- */
+function render() {
+  const title = currentProject === "all" ? "ทุกโปรเจกต์"
+    : DATA.projects.find(p => p.id === currentProject).name;
+  document.getElementById("projTitle").textContent = title;
+  if (currentView === "dashboard") renderDashboard();
+  else if (currentView === "kanban") renderKanban();
+  else renderList();
+}
+
+/* ---------- Dashboard ---------- */
+function renderDashboard() {
+  const tasks = allTasks();
+  const done = tasks.filter(t => t.column === "เสร็จ").length;
+  const doing = tasks.filter(t => t.column === "กำลังทำ").length;
+  const overdue = tasks.filter(isOverdue).length;
+
+  const html = `
+    <div class="stats">
+      <div class="stat"><div class="num">${tasks.length}</div><div class="label">งานทั้งหมด</div></div>
+      <div class="stat"><div class="num" style="color:var(--doing)">${doing}</div><div class="label">กำลังทำ</div></div>
+      <div class="stat"><div class="num" style="color:var(--done)">${done}</div><div class="label">เสร็จแล้ว</div></div>
+      <div class="stat"><div class="num" style="color:var(--high)">${overdue}</div><div class="label">เลยกำหนด</div></div>
+    </div>
+    <div class="section-title">ภาพรวมโปรเจกต์</div>
+    ${visibleProjects().map(projRow).join("")}
+    <div class="section-title">ใกล้ถึงกำหนด / เลยกำหนด</div>
+    ${dueList()}
+  `;
+  document.getElementById("content").innerHTML = html;
+}
+
+function projRow(p) {
+  const tasks = projectTasks(p);
+  const done = tasks.filter(t => t.column === "เสร็จ").length;
+  const pct = tasks.length ? Math.round(done / tasks.length * 100) : 0;
+  return `
+    <div class="proj-row">
+      <div class="head">
+        <span class="project-dot" style="background:${p.color}"></span>
+        <span class="name">${p.name}</span>
+        <span class="sub">${done}/${tasks.length} เสร็จ · ${pct}%</span>
+      </div>
+      <div class="bar"><span style="width:${pct}%;background:${p.color}"></span></div>
+    </div>`;
+}
+
+function dueList() {
+  const tasks = allTasks().filter(t => t.due).sort((a, b) => a.due.localeCompare(b.due));
+  const upcoming = tasks.filter(t => !isOverdue(t) && t.column !== "เสร็จ").slice(0, 8);
+  const overdue = tasks.filter(isOverdue);
+  if (!upcoming.length && !overdue.length)
+    return `<div class="empty">— ไม่มีงานที่กำหนดวัน —</div>`;
+  const mk = (t, cls, label) => `
+    <li><span class="project-dot" style="background:${t.project.color}"></span>
+      <span>${t.title}</span>
+      <span class="pill ${cls}">${label}</span>
+      <span class="when">${fmtDate(t.due)}</span></li>`;
+  return `<ul class="due-list">
+    ${overdue.map(t => mk(t, "overdue", "เลยกำหนด")).join("")}
+    ${upcoming.map(t => {
+      const isToday = t.due === todayStr();
+      return mk(t, isToday ? "today" : "", isToday ? "วันนี้" : "ใกล้ถึง");
+    }).join("")}
+  </ul>`;
+}
+
+/* ---------- Kanban ---------- */
+function renderKanban() {
+  const projects = visibleProjects();
+  const cols = projects[0]?.columns || ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"];
+  const tasks = projects.flatMap(projectTasks);
+
+  document.getElementById("content").innerHTML = `
+    <div class="board">
+      ${cols.map(c => {
+        const inCol = tasks.filter(t => t.column === c);
+        return `
+        <div class="column">
+          <div class="column-head">
+            <span class="project-dot" style="background:${COL_COLORS[c] || "var(--accent)"}"></span>
+            <h2>${c}</h2><span class="count">${inCol.length}</span>
+          </div>
+          ${inCol.length ? inCol.map(card).join("") : `<div class="empty">— ว่าง —</div>`}
+        </div>`;
+      }).join("")}
+    </div>`;
+  bindCards();
+}
+
+function card(t) {
+  const badges = [];
+  if (t.priority) badges.push(`<span class="badge ${PRIO[t.priority] || ""}">${t.priority}</span>`);
+  if (t.due) badges.push(`<span class="badge due ${isOverdue(t) ? "overdue" : ""}">${fmtDate(t.due)}</span>`);
+  (t.tags || []).forEach(tag => badges.push(`<span class="badge tag">#${tag}</span>`));
+  const subDone = (t.subtasks || []).filter(s => s.done).length;
+  const subTotal = (t.subtasks || []).length;
+  const subTxt = subTotal ? ` · ✓ ${subDone}/${subTotal}` : "";
+  return `
+    <div class="card" data-id="${t.id}">
+      <div class="title">${t.title}</div>
+      ${badges.length ? `<div class="badges">${badges.join("")}</div>` : ""}
+      ${t.progress > 0 ? `<div class="bar"><span style="width:${t.progress}%;background:${t.project.color}"></span></div>` : ""}
+      <div class="meta"><span>${t.project.name}${subTxt}</span><span>${t.progress > 0 ? t.progress + "%" : ""}</span></div>
+    </div>`;
+}
+
+/* ---------- List ---------- */
+function renderList() {
+  const tasks = visibleProjects().flatMap(projectTasks);
+  const rows = tasks.map(t => `
+    <tr>
+      <td class="t-title" data-id="${t.id}">${t.title}</td>
+      <td><span class="pill">${t.column}</span></td>
+      <td>${t.priority ? `<span class="badge ${PRIO[t.priority]}">${t.priority}</span>` : ""}</td>
+      <td>${t.due ? `<span class="badge due ${isOverdue(t) ? "overdue" : ""}">${fmtDate(t.due)}</span>` : ""}</td>
+      <td>${t.progress > 0 ? `<div class="bar" style="max-width:90px"><span style="width:${t.progress}%;background:${t.project.color}"></span></div>` : ""}</td>
+      <td>${(t.tags || []).map(x => `<span class="badge tag">#${x}</span>`).join(" ")}</td>
+    </tr>`).join("");
+
+  document.getElementById("content").innerHTML = `
+    <table class="list-table">
+      <thead><tr><th>งาน</th><th>สถานะ</th><th>สำคัญ</th><th>กำหนด</th><th>ความคืบหน้า</th><th>แท็ก</th></tr></thead>
+      <tbody>${rows || `<tr><td colspan="6" class="empty">— ไม่มีงาน —</td></tr>`}</tbody>
+    </table>`;
+  bindCards();
+}
+
+/* ---------- Card click → modal ---------- */
+function bindCards() {
+  document.querySelectorAll("[data-id]").forEach(el => {
+    el.onclick = () => {
+      const t = allTasks().find(x => x.id === el.dataset.id);
+      if (t) showModal(t);
+    };
+  });
+}
+
+function showModal(t) {
+  const subs = (t.subtasks || []).map(s =>
+    `<li><span class="${s.done ? "chk" : "unchk"}">${s.done ? "☑" : "☐"}</span>${s.title}</li>`).join("");
+  const modal = document.getElementById("modal");
+  modal.innerHTML = `
+    <h3>${t.title}</h3>
+    <div class="proj-label">${t.project.name}</div>
+    ${t.description ? `<div class="desc">${t.description}</div>` : ""}
+    <div class="row">
+      <div class="field"><div class="lbl">สถานะ</div><div class="val">${t.column}</div></div>
+      <div class="field"><div class="lbl">สำคัญ</div><div class="val">${t.priority || "—"}</div></div>
+      <div class="field"><div class="lbl">กำหนด</div><div class="val">${fmtDate(t.due) || "—"}</div></div>
+      <div class="field"><div class="lbl">ความคืบหน้า</div><div class="val">${t.progress}%</div></div>
+    </div>
+    ${(t.tags || []).length ? `<div class="field"><div class="lbl">แท็ก</div><div class="val">${t.tags.map(x => `#${x}`).join(" ")}</div></div>` : ""}
+    ${subs ? `<div class="field" style="margin-top:12px"><div class="lbl">งานย่อย</div><ul class="subtasks">${subs}</ul></div>` : ""}
+    <button class="close" onclick="document.getElementById('overlay').classList.add('hidden')">ปิด</button>`;
+  document.getElementById("overlay").classList.remove("hidden");
+}
+
+document.getElementById("overlay").onclick = e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.add("hidden");
+};
 
 load();
 </script>

@@ -1,0 +1,83 @@
+{
+  "updated": "2026-11-01",
+  "projects": [
+    {
+      "id": "p-001",
+      "name": "ม่อนแก้วบาริเอ้อ",
+      "description": "Catalog ร้านม่อนแก้วบาริเอ้อ",
+      "color": "#d29922",
+      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "tasks": [
+        {
+          "id": "t-001",
+          "title": "Catalog ม่อนแก้วบาริเอ้อ",
+          "column": "กำลังทำ",
+          "description": "ทำแคตตาล็อกสินค้าของร้านม่อนแก้วบาริเอ้อ",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": "2026-11-15",
+          "tags": ["catalog"],
+          "subtasks": [],
+          "updated": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "id": "p-002",
+      "name": "Power App",
+      "description": "งาน Power Apps / Power Platform",
+      "color": "#58a6ff",
+      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "tasks": [
+        {
+          "id": "t-002",
+          "title": "Power App Line Monitor",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "ต่ำ",
+          "due": null,
+          "tags": ["powerapp"],
+          "subtasks": [],
+          "updated": "2026-11-01"
+        },
+        {
+          "id": "t-003",
+          "title": "Power App T2C",
+          "column": "กำลังทำ",
+          "description": "แอป T2C",
+          "progress": 60,
+          "priority": "สูง",
+          "due": "2026-11-06",
+          "tags": ["powerapp"],
+          "subtasks": [
+            { "title": "ออกแบบฟอร์ม", "done": true },
+            { "title": "เชื่อมต่อข้อมูล", "done": false }
+          ],
+          "updated": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "id": "p-003",
+      "name": "Excel",
+      "description": "งาน Excel / Automation",
+      "color": "#3fb950",
+      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "tasks": [
+        {
+          "id": "t-004",
+          "title": "Excel Priority Fill",
+          "column": "รอทดสอบ",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": "2026-11-03",
+          "tags": ["excel"],
+          "subtasks": [],
+          "updated": "2026-11-01"
+        }
+      ]
+    }
+  ]
+}
