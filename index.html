@@ -163,9 +163,122 @@
     background: var(--panel-2); color: var(--text); cursor: pointer; font-size: 13px; font-family: inherit;
   }
   .modal .close:hover { border-color: var(--accent); }
+  .modal .close.danger { color: var(--high); border-color: var(--high); background: transparent; }
+  .modal label { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; margin: 12px 0 4px; }
+  .modal input, .modal select, .modal textarea {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 10px; color: var(--text); font-size: 13px; font-family: inherit;
+  }
+  .modal input:focus, .modal select:focus, .modal textarea:focus { outline: none; border-color: var(--accent); }
+  .modal .btn-row { display: flex; gap: 10px; margin-top: 16px; }
+  .modal .btn-row .close { margin-top: 0; flex: 1; }
 
   footer { padding: 14px 20px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); background: var(--panel); }
   footer code { color: var(--text); }
+
+  /* ---------- Timesheet ---------- */
+  .ts-toolbar {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;
+  }
+  .ts-range { display: flex; gap: 4px; background: var(--panel-2); padding: 3px; border-radius: 8px; border: 1px solid var(--border); }
+  .ts-range button {
+    background: none; border: none; color: var(--muted); font-size: 12px;
+    padding: 4px 12px; border-radius: 6px; cursor: pointer; font-family: inherit;
+  }
+  .ts-range button.active { background: var(--accent); color: #04121f; font-weight: 600; }
+  .ts-nav {
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 15px; line-height: 1;
+  }
+  .ts-nav:hover { border-color: var(--accent); }
+  .ts-label { font-weight: 600; font-size: 14px; }
+  .ts-today { background: none; border: 1px solid var(--border); color: var(--muted); font-size: 11px; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-family: inherit; }
+  .ts-today:hover { color: var(--accent); border-color: var(--accent); }
+  .ts-total { margin-left: auto; color: var(--muted); font-size: 12px; }
+  .ts-total b { color: var(--text); font-size: 15px; }
+
+  .ts-layout { display: grid; grid-template-columns: 1fr 300px; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .ts-layout { grid-template-columns: 1fr; } }
+
+  /* Calendar grid */
+  .ts-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  @media (max-width: 1000px) { .ts-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .ts-grid { grid-template-columns: 1fr; } }
+  .ts-day {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    min-height: 280px; display: flex; flex-direction: column; transition: border-color .12s;
+  }
+  .ts-day.drag-over { border-color: var(--accent); background: var(--panel-2); }
+  .ts-day.today { border-color: var(--accent); }
+  .ts-day-head {
+    padding: 8px 10px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .ts-day-head .dow { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .ts-day-head .date { font-size: 13px; font-weight: 600; }
+  .ts-day-head .sum { margin-left: auto; font-size: 11px; color: var(--muted); }
+  .ts-day-body { padding: 8px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .ts-day-body .add-btn {
+    background: none; border: 1px dashed var(--border); color: var(--muted);
+    border-radius: 8px; padding: 5px; cursor: pointer; font-size: 12px; margin-top: auto; font-family: inherit;
+  }
+  .ts-day-body .add-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+  .ts-entry {
+    border-radius: 7px; padding: 7px 9px; cursor: pointer; position: relative;
+    background: var(--panel-2); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+  }
+  .ts-entry:hover { border-color: var(--accent); }
+  .ts-entry .t { font-size: 12px; font-weight: 500; word-break: break-word; }
+  .ts-entry .d { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .ts-entry .proj { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+  /* Month view */
+  .ts-month { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .ts-month .mhead { font-size: 11px; color: var(--muted); text-align: center; padding: 4px 0; font-weight: 600; }
+  .ts-mcell {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    min-height: 80px; padding: 5px 6px; cursor: pointer;
+  }
+  .ts-mcell:hover { border-color: var(--accent); }
+  .ts-mcell.blank { background: transparent; border: none; cursor: default; }
+  .ts-mcell .num { font-size: 11px; color: var(--muted); }
+  .ts-mcell .sum { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .ts-mcell .chip { display: flex; align-items: center; gap: 4px; font-size: 10px; margin-top: 3px; color: var(--text); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .ts-mcell .chip .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Tasks sidebar (timesheet) */
+  .ts-side { display: flex; flex-direction: column; gap: 8px; }
+  .ts-side .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+  .ts-side .panel h4 { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 8px; }
+  .ts-side .new-task {
+    width: 100%; padding: 8px; border-radius: 8px; border: 1px dashed var(--accent);
+    background: none; color: var(--accent); cursor: pointer; font-size: 12px; font-family: inherit;
+  }
+  .ts-side .new-task:hover { background: var(--panel-2); }
+  .ts-task {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 10px; margin-bottom: 6px; cursor: grab;
+  }
+  .ts-task:active { cursor: grabbing; }
+  .ts-task .t { font-size: 12px; font-weight: 500; word-break: break-word; }
+  .ts-task .meta { display: flex; gap: 6px; align-items: center; margin-top: 4px; flex-wrap: wrap; }
+  .ts-task .tag { font-size: 10px; color: var(--muted); }
+  .ts-task .pbar { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; margin-top: 6px; }
+  .ts-task .pbar span { display: block; height: 100%; border-radius: 999px; }
+  .ts-task .log { font-size: 10px; color: var(--muted); margin-top: 4px; }
+  .ts-task.dragging { opacity: .4; }
+
+  /* Tooltip */
+  #tooltip {
+    position: fixed; z-index: 100; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; font-size: 12px; pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,.5); max-width: 260px; display: none;
+  }
+  #tooltip .tt-title { font-weight: 600; margin-bottom: 4px; }
+  #tooltip .tt-row { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  #tooltip .tt-row b { color: var(--text); font-weight: 500; }
 </style>
 </head>
 <body>
@@ -183,6 +296,7 @@
         <button data-view="dashboard" class="active">Dashboard</button>
         <button data-view="kanban">Kanban</button>
         <button data-view="list">List</button>
+        <button data-view="timesheet">Timesheet</button>
       </div>
     </div>
     <div class="content" id="content"></div>
@@ -192,13 +306,43 @@
   <div class="overlay hidden" id="overlay">
     <div class="modal" id="modal"></div>
   </div>
+  <div id="tooltip"></div>
 
 <script>
 const COL_COLORS = { "วางแผน": "var(--plan)", "กำลังทำ": "var(--doing)", "รอทดสอบ": "var(--test)", "เสร็จ": "var(--done)" };
 const PRIO = { "สูง": "high", "กลาง": "mid", "ต่ำ": "low" };
+const TH_DAYS = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+const TH_DAYS_SHORT = ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"];
+const TH_MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+
 let DATA = null;
 let currentProject = "all";   // "all" or project id
 let currentView = "dashboard";
+
+/* Timesheet state */
+let tsRange = "week";         // week | day | month
+let tsOffset = 0;             // week offset (for week view)
+let tsDay = null;             // ISO date (for day view)
+let tsMonth = null;           // "YYYY-MM" (for month view)
+
+const LS_ENTRIES = "pm_time_entries";
+const LS_DELETED = "pm_deleted_entries";
+const LS_TASKS = "pm_tasks";
+
+function lsGet(key, fb) { try { const v = localStorage.getItem(key); return v == null ? fb : JSON.parse(v); } catch { return fb; } }
+function lsSet(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch {} }
+
+function isoDate(d) {
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+function parseDate(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
+function fmtDur(mins) {
+  if (!mins || mins <= 0) return "0m";
+  const h = Math.floor(mins / 60), m = mins % 60;
+  if (h === 0) return m + "m";
+  if (m === 0) return h + "h";
+  return h + "h " + m + "m";
+}
 
 async function load() {
   const res = await fetch("data.json", { cache: "no-store" });
@@ -208,20 +352,41 @@ async function load() {
   render();
 }
 
+/* ---------- Data access ---------- */
+function projectById(id) { return DATA.projects.find(p => p.id === id); }
+
 function allTasks() {
-  return DATA.projects.flatMap(p => p.tasks.map(t => ({ ...t, project: p })));
+  const dataTasks = DATA.projects.flatMap(p => p.tasks.map(t => ({ ...t, project: p, _src: "data" })));
+  const localTasks = lsGet(LS_TASKS, []).map(t => ({ ...t, project: projectById(t.project_id), _src: "local" }));
+  return [...dataTasks, ...localTasks];
 }
-function projectTasks(proj) {
-  return proj.tasks.map(t => ({ ...t, project: proj }));
-}
+function taskById(id) { return allTasks().find(t => t.id === id); }
+function projectTasks(proj) { return proj.tasks.map(t => ({ ...t, project: proj })); }
 function visibleProjects() {
   if (currentProject === "all") return DATA.projects;
   return DATA.projects.filter(p => p.id === currentProject);
 }
 
-function todayStr() {
-  return new Date().toISOString().slice(0, 10);
+/* Time entries: data.json merged with localStorage (local overrides / deletes) */
+function allEntries() {
+  const dataEntries = DATA.time_entries || [];
+  const local = lsGet(LS_ENTRIES, []);
+  const deleted = new Set(lsGet(LS_DELETED, []));
+  const localIds = new Set(local.map(e => e.id));
+  const merged = dataEntries
+    .filter(e => !deleted.has(e.id) && !localIds.has(e.id))
+    .concat(local);
+  return merged.map(e => {
+    const task = taskById(e.task_id);
+    const project = projectById(e.project_id) || (task ? task.project : null);
+    return { ...e, task, project };
+  });
 }
+function entriesForDate(iso) { return allEntries().filter(e => e.date === iso); }
+function totalForDate(iso) { return entriesForDate(iso).reduce((s, e) => s + (e.duration_minutes || 0), 0); }
+function loggedForTask(taskId) { return allEntries().filter(e => e.task_id === taskId).reduce((s, e) => s + (e.duration_minutes || 0), 0); }
+
+function todayStr() { return isoDate(new Date()); }
 function isOverdue(t) {
   return t.due && t.due < todayStr() && t.column !== "เสร็จ";
 }
@@ -274,7 +439,8 @@ function render() {
   document.getElementById("projTitle").textContent = title;
   if (currentView === "dashboard") renderDashboard();
   else if (currentView === "kanban") renderKanban();
-  else renderList();
+  else if (currentView === "list") renderList();
+  else renderTimesheet();
 }
 
 /* ---------- Dashboard ---------- */
@@ -283,6 +449,7 @@ function renderDashboard() {
   const done = tasks.filter(t => t.column === "เสร็จ").length;
   const doing = tasks.filter(t => t.column === "กำลังทำ").length;
   const overdue = tasks.filter(isOverdue).length;
+  const totalMin = allEntries().reduce((s, e) => s + (e.duration_minutes || 0), 0);
 
   const html = `
     <div class="stats">
@@ -290,6 +457,7 @@ function renderDashboard() {
       <div class="stat"><div class="num" style="color:var(--doing)">${doing}</div><div class="label">กำลังทำ</div></div>
       <div class="stat"><div class="num" style="color:var(--done)">${done}</div><div class="label">เสร็จแล้ว</div></div>
       <div class="stat"><div class="num" style="color:var(--high)">${overdue}</div><div class="label">เลยกำหนด</div></div>
+      <div class="stat"><div class="num" style="color:var(--accent)">${fmtDur(totalMin)}</div><div class="label">เวลารวมทั้งหมด</div></div>
     </div>
     <div class="section-title">ภาพรวมโปรเจกต์</div>
     ${visibleProjects().map(projRow).join("")}
@@ -425,6 +593,416 @@ function showModal(t) {
   document.getElementById("overlay").classList.remove("hidden");
 }
 
+/* ================================================================
+   TIMESHEET VIEW (Weekly Time Tracking & Calendar Planner)
+   ================================================================ */
+
+function renderTimesheet() {
+  if (tsMonth == null) tsMonth = todayStr().slice(0, 7);
+  if (tsDay == null) tsDay = todayStr();
+
+  const dates = currentDates();
+  const totalMin = dates.reduce((s, d) => s + totalForDate(d), 0);
+  const label = tsLabel();
+
+  document.getElementById("content").innerHTML = `
+    <div class="ts-toolbar">
+      <div class="ts-range">
+        <button data-r="day" class="${tsRange === "day" ? "active" : ""}">Day</button>
+        <button data-r="week" class="${tsRange === "week" ? "active" : ""}">Week</button>
+        <button data-r="month" class="${tsRange === "month" ? "active" : ""}">Month</button>
+      </div>
+      <button class="ts-nav" id="tsPrev">‹</button>
+      <span class="ts-label">${label}</span>
+      <button class="ts-nav" id="tsNext">›</button>
+      <button class="ts-today" id="tsToday">วันนี้</button>
+      <span class="ts-total">รวมทั้งสัปดาห์: <b>${fmtDur(totalMin)}</b></span>
+    </div>
+    <div class="ts-layout">
+      <div id="tsGrid"></div>
+      <div class="ts-side" id="tsSide"></div>
+    </div>`;
+
+  document.querySelectorAll(".ts-range button").forEach(b => {
+    b.onclick = () => { tsRange = b.dataset.r; renderTimesheet(); };
+  });
+  document.getElementById("tsPrev").onclick = () => shift(-1);
+  document.getElementById("tsNext").onclick = () => shift(1);
+  document.getElementById("tsToday").onclick = () => {
+    tsOffset = 0; tsDay = todayStr(); tsMonth = todayStr().slice(0, 7); renderTimesheet();
+  };
+
+  if (tsRange === "month") renderMonthGrid(dates);
+  else if (tsRange === "day") renderDayView(tsDay);
+  else renderWeekGrid(dates);
+
+  renderTsSide();
+}
+
+function currentDates() {
+  if (tsRange === "month") return monthDates(tsMonth);
+  if (tsRange === "day") return [tsDay];
+  return weekDates(tsOffset);
+}
+
+function weekDates(offset) {
+  const now = new Date();
+  const mon = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7) + offset * 7);
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(mon); d.setDate(mon.getDate() + i); return isoDate(d);
+  });
+}
+
+function monthDates(ym) {
+  const [y, m] = ym.split("-").map(Number);
+  const first = new Date(y, m - 1, 1);
+  const daysInMonth = new Date(y, m, 0).getDate();
+  const offset = (first.getDay() + 6) % 7;   // Monday-start
+  const out = [];
+  for (let i = 0; i < offset; i++) out.push(null);
+  for (let d = 1; d <= daysInMonth; d++) out.push(isoDate(new Date(y, m - 1, d)));
+  return out;
+}
+
+function tsLabel() {
+  if (tsRange === "month") {
+    const [y, m] = tsMonth.split("-").map(Number);
+    return TH_MONTHS[m - 1] + " " + y;
+  }
+  if (tsRange === "day") {
+    const d = parseDate(tsDay);
+    return `${TH_DAYS[d.getDay()]} ${d.getDate()} ${TH_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+  }
+  const dates = weekDates(tsOffset);
+  const a = parseDate(dates[0]), b = parseDate(dates[6]);
+  return `${a.getDate()} ${TH_MONTHS[a.getMonth()]} – ${b.getDate()} ${TH_MONTHS[b.getMonth()]} ${b.getFullYear()}`;
+}
+
+function shift(dir) {
+  if (tsRange === "month") {
+    const [y, m] = tsMonth.split("-").map(Number);
+    const d = new Date(y, m - 1 + dir, 1);
+    tsMonth = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+  } else if (tsRange === "day") {
+    const d = parseDate(tsDay); d.setDate(d.getDate() + dir); tsDay = isoDate(d);
+  } else {
+    tsOffset += dir;
+  }
+  renderTimesheet();
+}
+
+/* ---------- Week grid ---------- */
+function renderWeekGrid(dates) {
+  document.getElementById("tsGrid").innerHTML = `
+    <div class="ts-grid">
+      ${dates.map(d => dayColumn(d)).join("")}
+    </div>`;
+  bindDayCells();
+}
+
+function renderDayView(iso) {
+  const total = totalForDate(iso);
+  const d = parseDate(iso);
+  document.getElementById("tsGrid").innerHTML = `
+    <div class="ts-grid" style="grid-template-columns:1fr">
+      ${dayColumn(iso)}
+    </div>`;
+  bindDayCells();
+}
+
+function dayColumn(iso) {
+  const d = parseDate(iso);
+  const entries = entriesForDate(iso);
+  const sum = totalForDate(iso);
+  const isToday = iso === todayStr();
+  return `
+    <div class="ts-day ${isToday ? "today" : ""}" data-date="${iso}">
+      <div class="ts-day-head">
+        <span class="dow">${TH_DAYS[d.getDay()]}</span>
+        <span class="date">${d.getDate()} ${TH_MONTHS[d.getMonth()]}</span>
+        <span class="sum">${sum ? fmtDur(sum) : ""}</span>
+      </div>
+      <div class="ts-day-body">
+        ${entries.map(entryCard).join("")}
+        <button class="add-btn" data-add="${iso}">+ บันทึกเวลา</button>
+      </div>
+    </div>`;
+}
+
+function entryCard(e) {
+  const color = e.project ? e.project.color : "var(--accent)";
+  return `
+    <div class="ts-entry" data-entry="${e.id}" style="border-left-color:${color}">
+      <div class="t">${e.task ? e.task.title : (e.note || "—")}</div>
+      <div class="d">${fmtDur(e.duration_minutes)}</div>
+      <div class="proj">${e.project ? e.project.name : "—"}</div>
+    </div>`;
+}
+
+/* ---------- Month grid ---------- */
+function renderMonthGrid(dates) {
+  const heads = ["จ", "อ", "พ", "พฤ", "ศ", "ส", "อา"];
+  let html = `<div class="ts-month">` + heads.map(h => `<div class="mhead">${h}</div>`).join("");
+  for (const d of dates) {
+    if (d == null) { html += `<div class="ts-mcell blank"></div>`; continue; }
+    const entries = entriesForDate(d).slice(0, 3);
+    const sum = totalForDate(d);
+    const dd = parseDate(d);
+    html += `
+      <div class="ts-mcell" data-jump="${d}">
+        <div class="num">${dd.getDate()}</div>
+        ${sum ? `<div class="sum">${fmtDur(sum)}</div>` : ""}
+        ${entries.map(e => `
+          <div class="chip"><span class="dot" style="background:${e.project ? e.project.color : "var(--accent)"}"></span>${e.task ? e.task.title : "—"}</div>`).join("")}
+      </div>`;
+  }
+  html += `</div>`;
+  document.getElementById("tsGrid").innerHTML = html;
+  document.querySelectorAll(".ts-mcell[data-jump]").forEach(c => {
+    c.onclick = () => { tsRange = "day"; tsDay = c.dataset.jump; renderTimesheet(); };
+  });
+}
+
+/* ---------- Drag & drop + click to add ---------- */
+function bindDayCells() {
+  document.querySelectorAll(".ts-day[data-date]").forEach(cell => {
+    const date = cell.dataset.date;
+    cell.addEventListener("dragover", e => { e.preventDefault(); cell.classList.add("drag-over"); });
+    cell.addEventListener("dragleave", () => cell.classList.remove("drag-over"));
+    cell.addEventListener("drop", e => {
+      e.preventDefault();
+      cell.classList.remove("drag-over");
+      const taskId = e.dataTransfer.getData("text/plain");
+      if (taskId) { createEntry(taskId, date); }
+    });
+  });
+  document.querySelectorAll("[data-add]").forEach(b => {
+    b.onclick = () => openEntryModal(null, b.dataset.add);
+  });
+}
+
+function createEntry(taskId, date, mins = 60) {
+  const task = taskById(taskId);
+  const entry = {
+    id: "te-" + Date.now(),
+    task_id: taskId,
+    project_id: task ? task.project.id : null,
+    date,
+    duration_minutes: mins,
+    note: ""
+  };
+  const local = lsGet(LS_ENTRIES, []);
+  local.push(entry);
+  lsSet(LS_ENTRIES, local);
+  renderTimesheet();
+  openEntryModal(entry.id);
+}
+
+/* ---------- Entry edit modal ---------- */
+function openEntryModal(entryId, presetDate) {
+  const entry = entryId ? allEntries().find(e => e.id === entryId) : null;
+  const tasks = allTasks();
+  const projOpts = DATA.projects.map(p => `<option value="${p.id}">${p.name}</option>`).join("");
+  const taskOpts = tasks.map(t => `<option value="${t.id}" data-pid="${t.project ? t.project.id : ""}">${t.title}</option>`).join("");
+
+  const e = entry || { task_id: "", project_id: DATA.projects[0]?.id || "", date: presetDate || todayStr(), duration_minutes: 60, note: "" };
+
+  const modal = document.getElementById("modal");
+  modal.innerHTML = `
+    <h3>${entry ? "แก้ไขเวลางาน" : "บันทึกเวลาใหม่"}</h3>
+    <label>งาน (Task)</label>
+    <select id="f-task">${taskOpts}</select>
+    <label>โปรเจกต์</label>
+    <select id="f-proj">${projOpts}</select>
+    <label>วันที่</label>
+    <input type="date" id="f-date" value="${e.date}">
+    <label>ระยะเวลา (นาที)</label>
+    <input type="number" id="f-dur" min="1" step="5" value="${e.duration_minutes}">
+    <label>หมายเหตุ</label>
+    <input type="text" id="f-note" value="${e.note || ""}" placeholder="ไม่บังคับ">
+    <div class="btn-row">
+      ${entry ? `<button class="close danger" id="f-del">ลบ</button>` : ""}
+      <button class="close" id="f-save">บันทึก</button>
+    </div>`;
+
+  const taskSel = document.getElementById("f-task");
+  const projSel = document.getElementById("f-proj");
+  if (e.task_id) taskSel.value = e.task_id;
+  if (e.project_id) projSel.value = e.project_id;
+  taskSel.onchange = () => {
+    const opt = taskSel.options[taskSel.selectedIndex];
+    if (opt && opt.dataset.pid) projSel.value = opt.dataset.pid;
+  };
+
+  document.getElementById("f-save").onclick = () => {
+    const task = taskById(taskSel.value);
+    const data = {
+      id: entry ? entry.id : "te-" + Date.now(),
+      task_id: taskSel.value,
+      project_id: projSel.value,
+      date: document.getElementById("f-date").value,
+      duration_minutes: parseInt(document.getElementById("f-dur").value) || 0,
+      note: document.getElementById("f-note").value.trim()
+    };
+    let local = lsGet(LS_ENTRIES, []);
+    const idx = local.findIndex(x => x.id === data.id);
+    if (idx >= 0) local[idx] = data; else local.push(data);
+    lsSet(LS_ENTRIES, local);
+    document.getElementById("overlay").classList.add("hidden");
+    renderTimesheet();
+  };
+
+  const delBtn = document.getElementById("f-del");
+  if (delBtn) delBtn.onclick = () => {
+    let deleted = lsGet(LS_DELETED, []);
+    deleted.push(entry.id);
+    lsSet(LS_DELETED, deleted);
+    let local = lsGet(LS_ENTRIES, []).filter(x => x.id !== entry.id);
+    lsSet(LS_ENTRIES, local);
+    document.getElementById("overlay").classList.add("hidden");
+    renderTimesheet();
+  };
+
+  document.getElementById("overlay").classList.remove("hidden");
+}
+
+/* ---------- Entry hover tooltip ---------- */
+function bindEntryTooltips() {
+  document.querySelectorAll(".ts-entry[data-entry]").forEach(el => {
+    el.addEventListener("mousemove", e => showTooltip(e, el.dataset.entry));
+    el.addEventListener("mouseleave", hideTooltip);
+    el.addEventListener("click", () => openEntryModal(el.dataset.entry));
+  });
+}
+
+function showTooltip(e, entryId) {
+  const entry = allEntries().find(x => x.id === entryId);
+  if (!entry) return;
+  const task = entry.task;
+  const logged = task ? loggedForTask(task.id) : 0;
+  const planned = task && task.estimate_minutes ? task.estimate_minutes : 0;
+  const pct = planned ? Math.min(100, Math.round(logged / planned * 100)) : null;
+  const tt = document.getElementById("tooltip");
+  tt.innerHTML = `
+    <div class="tt-title">${task ? task.title : (entry.note || "—")}</div>
+    <div class="tt-row"><span>Logged</span><b>${fmtDur(logged)}</b></div>
+    <div class="tt-row"><span>Planned</span><b>${planned ? fmtDur(planned) : "—"}${pct != null ? ` (${pct}%)` : ""}</b></div>
+    <div class="tt-row"><span>Due</span><b>${task && task.due ? fmtDate(task.due) : "—"}</b></div>
+    <div class="tt-row"><span>Status</span><b>${task ? task.column : "—"}</b></div>`;
+  tt.style.display = "block";
+  const x = e.clientX + 14, y = e.clientY + 14;
+  tt.style.left = Math.min(x, window.innerWidth - 280) + "px";
+  tt.style.top = Math.min(y, window.innerHeight - 160) + "px";
+}
+function hideTooltip() { document.getElementById("tooltip").style.display = "none"; }
+
+/* ---------- Timesheet tasks sidebar ---------- */
+function renderTsSide() {
+  const tasks = allTasks();
+  const active = tasks.filter(t => t.column !== "เสร็จ");
+  const completed = tasks.filter(t => t.column === "เสร็จ");
+  const withDue = active.filter(t => t.due).sort((a, b) => a.due.localeCompare(b.due));
+
+  document.getElementById("tsSide").innerHTML = `
+    <div class="panel">
+      <h4>Active Tasks</h4>
+      <button class="new-task" id="newTask">+ New Task</button>
+      <div id="activeTasks">${active.length ? active.map(tsTask).join("") : `<div class="empty" style="padding:10px 0">— ไม่มีงาน —</div>`}</div>
+    </div>
+    <div class="panel">
+      <h4>Upcoming (กำหนดวัน)</h4>
+      <div>${withDue.length ? withDue.slice(0, 6).map(tsTask).join("") : `<div class="empty" style="padding:10px 0">— ไม่มี —</div>`}</div>
+    </div>
+    <div class="panel">
+      <h4>Completed</h4>
+      <div>${completed.length ? completed.slice(0, 6).map(tsTask).join("") : `<div class="empty" style="padding:10px 0">— ไม่มี —</div>`}</div>
+    </div>`;
+
+  document.getElementById("newTask").onclick = () => openNewTaskModal();
+  bindTaskDrag();
+  bindEntryTooltips();
+}
+
+function tsTask(t) {
+  const logged = loggedForTask(t.id);
+  const planned = t.estimate_minutes || 0;
+  const pct = planned ? Math.min(100, Math.round(logged / planned * 100)) : 0;
+  const color = t.project ? t.project.color : "var(--accent)";
+  return `
+    <div class="ts-task" draggable="true" data-task-id="${t.id}">
+      <div class="t">${t.title}</div>
+      <div class="meta">
+        <span class="tag" style="color:${color}">${t.project ? t.project.name : "—"}</span>
+        ${t.due ? `<span class="tag">${fmtDate(t.due)}</span>` : ""}
+      </div>
+      ${planned ? `
+        <div class="pbar"><span style="width:${pct}%;background:${color}"></span></div>
+        <div class="log">Logged ${fmtDur(logged)} / ${fmtDur(planned)}${pct ? ` (${pct}%)` : ""}</div>
+      ` : `
+        <div class="log">Logged ${fmtDur(logged)}</div>
+      `}
+    </div>`;
+}
+
+function bindTaskDrag() {
+  document.querySelectorAll(".ts-task[draggable]").forEach(el => {
+    el.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("text/plain", el.dataset.taskId);
+      el.classList.add("dragging");
+    });
+    el.addEventListener("dragend", () => el.classList.remove("dragging"));
+  });
+}
+
+/* ---------- New task modal (localStorage) ---------- */
+function openNewTaskModal() {
+  const projOpts = DATA.projects.map(p => `<option value="${p.id}">${p.name}</option>`).join("");
+  const modal = document.getElementById("modal");
+  modal.innerHTML = `
+    <h3>+ งานใหม่</h3>
+    <label>ชื่องาน</label>
+    <input type="text" id="nt-title" placeholder="ชื่อ...">
+    <label>โปรเจกต์</label>
+    <select id="nt-proj">${projOpts}</select>
+    <label>สถานะ</label>
+    <select id="nt-col">
+      <option>วางแผน</option><option selected>กำลังทำ</option><option>รอทดสอบ</option><option>เสร็จ</option>
+    </select>
+    <label>สำคัญ</label>
+    <select id="nt-prio"><option>กลาง</option><option>สูง</option><option>ต่ำ</option></select>
+    <label>กำหนดวัน</label>
+    <input type="date" id="nt-due">
+    <label>เป้าหมายเวลา (ชั่วโมง)</label>
+    <input type="number" id="nt-est" min="0" step="0.5" placeholder="เช่น 8">
+    <div class="btn-row"><button class="close" id="nt-save">บันทึก</button></div>`;
+
+  document.getElementById("nt-save").onclick = () => {
+    const title = document.getElementById("nt-title").value.trim();
+    if (!title) return;
+    const estH = parseFloat(document.getElementById("nt-est").value);
+    const task = {
+      id: "t-" + Date.now(),
+      title,
+      project_id: document.getElementById("nt-proj").value,
+      column: document.getElementById("nt-col").value,
+      priority: document.getElementById("nt-prio").value,
+      due: document.getElementById("nt-due").value || null,
+      estimate_minutes: estH && estH > 0 ? Math.round(estH * 60) : null,
+      tags: [],
+      subtasks: [],
+      updated: todayStr()
+    };
+    const local = lsGet(LS_TASKS, []);
+    local.push(task);
+    lsSet(LS_TASKS, local);
+    document.getElementById("overlay").classList.add("hidden");
+    renderTimesheet();
+  };
+
+  document.getElementById("overlay").classList.remove("hidden");
+}
+
+/* ---------- Overlay close ---------- */
 document.getElementById("overlay").onclick = e => {
   if (e.target === e.currentTarget) e.currentTarget.classList.add("hidden");
 };
