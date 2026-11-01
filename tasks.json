@@ -1,0 +1,37 @@
+{
+  "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+  "tasks": [
+    {
+      "id": "t-001",
+      "title": "Power App Line Monitor",
+      "column": "วางแผน",
+      "note": "",
+      "progress": 0,
+      "updated": "2026-11-01"
+    },
+    {
+      "id": "t-002",
+      "title": "Catalog ม่อนแก้วบาริเอ้อ",
+      "column": "กำลังทำ",
+      "note": "",
+      "progress": 0,
+      "updated": "2026-11-01"
+    },
+    {
+      "id": "t-003",
+      "title": "Power App T2C",
+      "column": "กำลังทำ",
+      "note": "",
+      "progress": 60,
+      "updated": "2026-11-01"
+    },
+    {
+      "id": "t-004",
+      "title": "Excel Priority Fill",
+      "column": "รอทดสอบ",
+      "note": "รอผลทดสอบ",
+      "progress": 0,
+      "updated": "2026-11-01"
+    }
+  ]
+}

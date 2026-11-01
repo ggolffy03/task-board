@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Board</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --plan: #58a6ff;
+    --doing: #d29922;
+    --test: #a371f7;
+    --done: #3fb950;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Thai", sans-serif;
+    padding: 24px;
+  }
+  header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  h1 { font-size: 20px; font-weight: 600; }
+  header .meta { color: var(--muted); font-size: 13px; }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .board { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .board { grid-template-columns: 1fr; } }
+  .column {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    min-height: 200px;
+  }
+  .column-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .column-head h2 { font-size: 14px; font-weight: 600; }
+  .count {
+    margin-left: auto;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 1px 8px;
+    border-radius: 999px;
+  }
+  .card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  .card .title { font-size: 14px; font-weight: 500; margin-bottom: 6px; word-break: break-word; }
+  .card .note { color: var(--muted); font-size: 12px; margin-bottom: 8px; white-space: pre-wrap; word-break: break-word; }
+  .bar { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+  .card .meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; margin-top: 8px; }
+  .empty { color: var(--muted); font-size: 13px; text-align: center; padding: 20px 0; }
+  footer { margin-top: 24px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📋 Task Board</h1>
+  <span class="meta" id="updated"></span>
+</header>
+<div class="board" id="board"></div>
+<footer>อัปเดตงานผ่าน Discord — ข้อมูลจาก <code>tasks.json</code></footer>
+
+<script>
+const COLORS = {
+  "วางแผน": "var(--plan)",
+  "กำลังทำ": "var(--doing)",
+  "รอทดสอบ": "var(--test)",
+  "เสร็จ": "var(--done)"
+};
+
+async function load() {
+  const res = await fetch("tasks.json", { cache: "no-store" });
+  const data = await res.json();
+  document.getElementById("updated").textContent =
+    "อัปเดตล่าสุด " + (data.updated || "—");
+  render(data);
+}
+
+function render(data) {
+  const board = document.getElementById("board");
+  board.innerHTML = "";
+  for (const col of data.columns) {
+    const colEl = document.createElement("div");
+    colEl.className = "column";
+    const tasks = data.tasks.filter(t => t.column === col);
+
+    const head = document.createElement("div");
+    head.className = "column-head";
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dot.style.background = COLORS[col] || "var(--accent)";
+    const h2 = document.createElement("h2");
+    h2.textContent = col;
+    const count = document.createElement("span");
+    count.className = "count";
+    count.textContent = tasks.length;
+    head.append(dot, h2, count);
+    colEl.appendChild(head);
+
+    if (tasks.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent = "— ว่าง —";
+      colEl.appendChild(empty);
+    }
+
+    for (const t of tasks) {
+      const card = document.createElement("div");
+      card.className = "card";
+      const title = document.createElement("div");
+      title.className = "title";
+      title.textContent = t.title;
+      card.appendChild(title);
+
+      if (t.note) {
+        const note = document.createElement("div");
+        note.className = "note";
+        note.textContent = t.note;
+        card.appendChild(note);
+      }
+
+      if (t.progress > 0) {
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        const span = document.createElement("span");
+        span.style.width = t.progress + "%";
+        bar.appendChild(span);
+        card.appendChild(bar);
+      }
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      const pct = document.createElement("span");
+      pct.textContent = t.progress > 0 ? t.progress + "%" : "";
+      const date = document.createElement("span");
+      date.textContent = t.updated || "";
+      meta.append(pct, date);
+      card.appendChild(meta);
+
+      colEl.appendChild(card);
+    }
+
+    board.appendChild(colEl);
+  }
+}
+
+load();
+</script>
+</body>
+</html>
