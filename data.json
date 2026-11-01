@@ -167,6 +167,22 @@
           ],
           "note": "UI Recheck แล้วตรงทุกหน้า; ยังไม่ได้ทดสอบระบบ",
           "updated": "2026-11-01"
+        },
+        {
+          "id": "t-011",
+          "title": "UI Web HR — อนุมัติคำขอ",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["ui", "hr-web"],
+          "subtasks": [
+            { "title": "เพิ่ม Badge แสดงผู้อนุมัติ + เวลา", "done": false },
+            { "title": "เปลี่ยนการแสดงผลรายละเอียดเป็น pop up", "done": false }
+          ],
+          "note": "",
+          "updated": "2026-11-01"
         }
       ]
     },
