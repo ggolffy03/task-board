@@ -217,9 +217,26 @@
   }
   .card:hover { border-color: var(--accent); }
   .card .title { font-size: 13px; font-weight: 500; margin-bottom: 6px; word-break: break-word; line-height: 1.35; }
+  .card .title .arrow { color: var(--muted); font-family: var(--font-mono); margin-right: 4px; transition: transform .12s; display: inline-block; }
+  .card.expanded .title .arrow { transform: rotate(90deg); }
   .card .note { font-size: 11px; color: var(--muted); margin-bottom: 7px; }
   .card .badges { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
   .card .meta { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-family: var(--font-mono); font-size: 10px; margin-top: 8px; }
+
+  /* Inline expand details */
+  .card-details { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .card.expanded .card-details { display: block; }
+  .card-details .dl-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; }
+  .card-details .dl-field { flex: 1; min-width: 96px; }
+  .card-details .dl-lbl { color: var(--muted); font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px; }
+  .card-details .dl-val { font-size: 12px; font-family: var(--font-mono); }
+  .card-details .dl-desc { font-size: 12px; color: var(--muted-2); white-space: pre-wrap; margin-bottom: 10px; }
+  .card-details .dl-subs { list-style: none; }
+  .card-details .dl-subs li { display: flex; gap: 7px; align-items: center; padding: 3px 0; font-size: 12px; font-family: var(--font-mono); }
+  .card-details .dl-subs .chk { color: var(--done); }
+  .card-details .dl-subs .unchk { color: var(--muted); }
+  .card-details .dl-tags { margin-top: 4px; }
+  .card-details .dl-tags .val { font-size: 11px; }
 
   /* ---------- List view ---------- */
   .list-table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -664,13 +681,29 @@ function card(t) {
   const subDone = (t.subtasks || []).filter(s => s.done).length;
   const subTotal = (t.subtasks || []).length;
   const subTxt = subTotal ? ` · ✓${subDone}/${subTotal}` : "";
+
+  const subs = (t.subtasks || []).map(s =>
+    `<li><span class="${s.done ? "chk" : "unchk"}">${s.done ? "▣" : "▢"}</span>${s.title}</li>`).join("");
+
   return `
     <div class="card" data-id="${t.id}">
-      <div class="title">${t.title}</div>
+      <div class="title"><span class="arrow">▸</span>${t.title}</div>
       ${t.note ? `<div class="note">${t.note}</div>` : ""}
       ${badges.length ? `<div class="badges">${badges.join("")}</div>` : ""}
       ${t.progress > 0 ? `<div class="bar"><span style="width:${t.progress}%;background:${t.project.color}"></span></div>` : ""}
       <div class="meta"><span>${t.project.name}${subTxt}</span><span>${t.progress > 0 ? t.progress + "%" : ""}</span></div>
+      <div class="card-details">
+        <div class="dl-row">
+          <div class="dl-field"><div class="dl-lbl">สถานะ</div><div class="dl-val">${t.column}</div></div>
+          <div class="dl-field"><div class="dl-lbl">สำคัญ</div><div class="dl-val">${t.priority || "—"}</div></div>
+          <div class="dl-field"><div class="dl-lbl">กำหนด</div><div class="dl-val">${fmtDate(t.due) || "—"}</div></div>
+          <div class="dl-field"><div class="dl-lbl">ความคืบหน้า</div><div class="dl-val">${t.progress}%</div></div>
+        </div>
+        ${t.description ? `<div class="dl-desc">${t.description}</div>` : ""}
+        ${t.note ? `<div class="dl-desc">// ${t.note}</div>` : ""}
+        ${subs ? `<div class="dl-field"><div class="dl-lbl">งานย่อย</div><ul class="dl-subs">${subs}</ul></div>` : ""}
+        ${(t.tags || []).length ? `<div class="dl-field dl-tags"><div class="dl-lbl">แท็ก</div><div class="dl-val">${t.tags.map(x => `#${x}`).join(" ")}</div></div>` : ""}
+      </div>
     </div>`;
 }
 
@@ -697,12 +730,17 @@ function renderList() {
   bindCards();
 }
 
-/* ---------- Card click → modal ---------- */
+/* ---------- Card click → inline expand ---------- */
 function bindCards() {
   document.querySelectorAll("[data-id]").forEach(el => {
-    el.onclick = () => {
-      const t = allTasks().find(x => x.id === el.dataset.id);
-      if (t) showModal(t);
+    el.onclick = (e) => {
+      // list view rows still open modal; kanban cards expand inline
+      if (el.classList.contains("card")) {
+        el.classList.toggle("expanded");
+      } else {
+        const t = allTasks().find(x => x.id === el.dataset.id);
+        if (t) showModal(t);
+      }
     };
   });
 }
