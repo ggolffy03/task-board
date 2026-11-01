@@ -4,293 +4,349 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PM Board — Personal Project Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d1117;
-    --panel: #161b22;
-    --panel-2: #1c2128;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8b949e;
-    --accent: #58a6ff;
+    --bg: #0a0a0a;
+    --panel: #121212;
+    --panel-2: #161616;
+    --panel-3: #1b1b1b;
+    --border: #222;
+    --border-soft: rgba(255,255,255,.08);
+    --text: #ffffff;
+    --muted: #777;
+    --muted-2: #999;
+    --accent: #ffffff;
     --plan: #58a6ff;
-    --doing: #d29922;
+    --doing: #f0b429;
     --test: #a371f7;
     --done: #3fb950;
-    --high: #f85149;
-    --mid: #d29922;
-    --low: #8b949e;
+    --high: #ff5555;
+    --mid: #f0b429;
+    --low: #777;
+    --r: 2px;
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Thai", sans-serif;
+    --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, "Courier New", monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Thai", sans-serif;
+    font-family: var(--font-sans);
     height: 100vh;
     display: flex;
+    flex-direction: column;
     overflow: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Sidebar */
+  /* ---------- System / Status bar ---------- */
+  .statusbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px 16px;
+    background: #000;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .statusbar .sb-brand { color: var(--text); font-weight: 700; }
+  .statusbar .sb-brand .dim { color: var(--muted); font-weight: 400; }
+  .statusbar .sb-sep { width: 1px; height: 10px; background: var(--border); }
+  .statusbar .sb-item b { color: var(--text); font-weight: 500; }
+  .statusbar .sb-right { margin-left: auto; color: var(--done); }
+  .statusbar .cursor { animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- Layout ---------- */
+  .layout { flex: 1; display: flex; min-height: 0; }
+
+  /* ---------- Sidebar ---------- */
   .sidebar {
-    width: 240px;
+    width: 236px;
     flex-shrink: 0;
     background: var(--panel);
     border-right: 1px solid var(--border);
-    padding: 16px;
+    padding: 14px 12px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     overflow-y: auto;
   }
-  .sidebar .brand { font-size: 15px; font-weight: 700; padding: 4px 0 8px; }
-  .sidebar .brand span { color: var(--accent); }
+  .sidebar .brand {
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 700; letter-spacing: .06em;
+    padding: 2px 4px 8px; text-transform: uppercase;
+  }
+  .sidebar .brand .dim { color: var(--muted); font-weight: 400; }
   .project-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 10px;
-    border-radius: 8px;
+    padding: 7px 8px;
+    border-radius: var(--r);
     cursor: pointer;
     color: var(--text);
-    font-size: 13px;
+    font-size: 12px;
     border: 1px solid transparent;
   }
   .project-item:hover { background: var(--panel-2); }
-  .project-item.active { background: var(--panel-2); border-color: var(--border); }
-  .project-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-  .project-item .count { margin-left: auto; color: var(--muted); font-size: 11px; }
+  .project-item.active { background: var(--panel-3); border-color: var(--border); }
+  .project-dot { width: 8px; height: 8px; flex-shrink: 0; }
+  .project-item .count { margin-left: auto; color: var(--muted); font-family: var(--font-mono); font-size: 10px; }
   .cat-group {
-    background: var(--panel-2);
+    background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 4px 8px 8px;
+    border-radius: var(--r);
+    padding: 2px 6px 6px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
   }
   .cat-head {
     display: flex; align-items: center; gap: 7px;
-    font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
-    color: var(--text); padding: 8px 4px 6px;
+    font-family: var(--font-mono);
+    font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted-2); padding: 8px 2px 6px;
   }
-  .cat-head .cat-dot { width: 8px; height: 8px; border-radius: 3px; flex-shrink: 0; }
+  .cat-head .cat-dot { width: 7px; height: 7px; flex-shrink: 0; }
   .cat-head .cat-count {
-    margin-left: auto; font-weight: 500; font-size: 10px;
-    background: var(--panel); border: 1px solid var(--border);
-    padding: 1px 7px; border-radius: 999px; color: var(--muted);
+    margin-left: auto; font-weight: 500; font-size: 9px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: var(--r); color: var(--muted);
   }
-  .cat-group .project-item { border-left: 2px solid transparent; border-radius: 6px; }
+  .cat-group .project-item { border-left: 2px solid transparent; border-radius: 0 var(--r) var(--r) 0; }
   .cat-group .project-item.active { border-left-color: var(--accent); }
-  .cat-empty { color: var(--muted); font-size: 12px; padding: 4px 10px 8px; }
-  .sidebar .hint { margin-top: auto; color: var(--muted); font-size: 11px; line-height: 1.5; }
+  .cat-empty { color: var(--muted); font-size: 11px; padding: 4px 8px 8px; font-family: var(--font-mono); }
+  .sidebar .hint { margin-top: auto; color: var(--muted); font-size: 10px; line-height: 1.5; font-family: var(--font-mono); }
+  .sidebar .hint code { color: var(--text); }
 
-  /* Main */
+  /* ---------- Main ---------- */
   .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 
   .topbar {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 20px;
+    padding: 12px 20px;
     border-bottom: 1px solid var(--border);
     background: var(--panel);
     flex-wrap: wrap;
   }
-  .topbar h1 { font-size: 16px; font-weight: 600; }
-  .topbar .meta { color: var(--muted); font-size: 12px; }
-  .views { display: flex; gap: 4px; margin-left: auto; background: var(--panel-2); padding: 3px; border-radius: 8px; border: 1px solid var(--border); }
+  .topbar h1 { font-size: 14px; font-weight: 600; letter-spacing: .02em; }
+  .topbar .meta { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+  .views { display: flex; gap: 0; margin-left: auto; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
   .views button {
-    background: none; border: none; color: var(--muted); font-size: 13px;
-    padding: 5px 14px; border-radius: 6px; cursor: pointer; font-family: inherit;
+    background: transparent; border: none; color: var(--muted); font-size: 11px;
+    padding: 7px 14px; cursor: pointer; font-family: var(--font-mono);
+    letter-spacing: .08em; text-transform: uppercase; border-right: 1px solid var(--border);
   }
-  .views button.active { background: var(--accent); color: #04121f; font-weight: 600; }
+  .views button:last-child { border-right: none; }
+  .views button:hover { color: var(--text); background: var(--panel-2); }
+  .views button.active { background: var(--accent); color: #000; font-weight: 700; }
 
   .content { flex: 1; overflow-y: auto; padding: 20px; }
 
-  /* Dashboard */
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
-  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
-  .stat .num { font-size: 24px; font-weight: 700; }
-  .stat .label { color: var(--muted); font-size: 12px; margin-top: 2px; }
-  .section-title { font-size: 14px; font-weight: 600; margin: 18px 0 10px; }
-  .proj-row { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
-  .proj-row .head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-  .proj-row .head .name { font-weight: 600; font-size: 14px; }
-  .proj-row .head .sub { color: var(--muted); font-size: 12px; }
-  .due-list { list-style: none; }
-  .due-list li {
-    display: flex; align-items: center; gap: 10px; padding: 8px 12px;
-    background: var(--panel); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px;
+  /* ---------- Shared ---------- */
+  .section-title {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .14em; color: var(--muted);
+    margin: 22px 0 10px;
   }
-  .due-list .when { color: var(--muted); font-size: 12px; margin-left: auto; white-space: nowrap; }
-  .pill { font-size: 11px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
-  .pill.overdue { color: var(--high); border-color: var(--high); }
-  .pill.today { color: var(--mid); border-color: var(--mid); }
-
-  /* Kanban */
-  .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: start; }
-  @media (max-width: 1000px) { .board { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .board { grid-template-columns: 1fr; } }
-  .column { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px; min-height: 200px; }
-  .column-head { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
-  .column-head h2 { font-size: 13px; font-weight: 600; }
-  .column-head .count { margin-left: auto; background: var(--panel-2); border: 1px solid var(--border); color: var(--muted); font-size: 11px; padding: 1px 8px; border-radius: 999px; }
-  .card {
-    background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
-    padding: 12px; margin-bottom: 10px; cursor: pointer; transition: border-color .12s;
+  .empty { color: var(--muted); font-size: 12px; text-align: center; padding: 20px 0; font-family: var(--font-mono); }
+  .bar { height: 4px; background: var(--border); overflow: hidden; }
+  .bar > span { display: block; height: 100%; }
+  .badge {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: var(--r); border: 1px solid var(--border); color: var(--muted);
   }
-  .card:hover { border-color: var(--accent); }
-  .card .title { font-size: 13px; font-weight: 500; margin-bottom: 6px; word-break: break-word; }
-  .card .note { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-  .card .badges { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
-  .badge { font-size: 10px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--border); }
   .badge.high { color: var(--high); border-color: var(--high); }
   .badge.mid { color: var(--mid); border-color: var(--mid); }
   .badge.low { color: var(--low); border-color: var(--low); }
   .badge.tag { color: var(--muted); }
   .badge.due { color: var(--test); border-color: var(--test); }
   .badge.due.overdue { color: var(--high); border-color: var(--high); }
-  .bar { height: 5px; background: var(--border); border-radius: 999px; overflow: hidden; }
-  .bar > span { display: block; height: 100%; border-radius: 999px; }
-  .card .meta { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 11px; margin-top: 8px; }
-  .empty { color: var(--muted); font-size: 13px; text-align: center; padding: 20px 0; }
+  .pill {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: var(--r); border: 1px solid var(--border); color: var(--muted);
+  }
+  .pill.overdue { color: var(--high); border-color: var(--high); }
+  .pill.today { color: var(--mid); border-color: var(--mid); }
 
-  /* List view */
+  /* ---------- Dashboard ---------- */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
+  .stat .num { font-family: var(--font-mono); font-size: 22px; font-weight: 600; }
+  .stat .label { color: var(--muted); font-size: 10px; margin-top: 3px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+  .proj-row { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; margin-bottom: 8px; }
+  .proj-row .head { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+  .proj-row .head .name { font-weight: 600; font-size: 13px; }
+  .proj-row .head .sub { color: var(--muted); font-size: 11px; font-family: var(--font-mono); }
+  .due-list { list-style: none; }
+  .due-list li {
+    display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .due-list .when { color: var(--muted); font-size: 11px; margin-left: auto; white-space: nowrap; font-family: var(--font-mono); }
+
+  /* ---------- Kanban ---------- */
+  .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: start; }
+  @media (max-width: 1000px) { .board { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .board { grid-template-columns: 1fr; } }
+  .column { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); padding: 12px; min-height: 180px; }
+  .column-head { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .column-head h2 { font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+  .column-head .count {
+    margin-left: auto; background: var(--panel-2); border: 1px solid var(--border);
+    color: var(--muted); font-family: var(--font-mono); font-size: 10px; padding: 1px 7px; border-radius: var(--r);
+  }
+  .card {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--r);
+    padding: 11px; margin-bottom: 8px; cursor: pointer;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .title { font-size: 13px; font-weight: 500; margin-bottom: 6px; word-break: break-word; line-height: 1.35; }
+  .card .note { font-size: 11px; color: var(--muted); margin-bottom: 7px; }
+  .card .badges { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .card .meta { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-family: var(--font-mono); font-size: 10px; margin-top: 8px; }
+
+  /* ---------- List view ---------- */
   .list-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .list-table th { text-align: left; color: var(--muted); font-weight: 500; padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 12px; }
+  .list-table th {
+    text-align: left; color: var(--muted); font-weight: 600; padding: 9px 10px;
+    border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
   .list-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); }
   .list-table tr:hover td { background: var(--panel-2); }
   .list-table .t-title { font-weight: 500; cursor: pointer; }
   .list-table .t-title:hover { color: var(--accent); }
 
-  /* Modal */
+  /* ---------- Modal ---------- */
   .overlay {
-    position: fixed; inset: 0; background: rgba(1,4,9,.7); display: flex;
+    position: fixed; inset: 0; background: rgba(0,0,0,.75); display: flex;
     align-items: center; justify-content: center; z-index: 50; padding: 20px;
   }
   .overlay.hidden { display: none; }
-  .modal { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 560px; padding: 20px; max-height: 85vh; overflow-y: auto; }
-  .modal h3 { font-size: 17px; margin-bottom: 4px; word-break: break-word; }
-  .modal .proj-label { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
+  .modal { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); width: 100%; max-width: 560px; padding: 20px; max-height: 85vh; overflow-y: auto; }
+  .modal h3 { font-size: 16px; margin-bottom: 4px; word-break: break-word; font-weight: 600; }
+  .modal .proj-label { color: var(--muted); font-family: var(--font-mono); font-size: 11px; margin-bottom: 14px; text-transform: uppercase; letter-spacing: .08em; }
   .modal .row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0; }
-  .modal .field { flex: 1; min-width: 140px; }
-  .modal .field .lbl { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 3px; }
-  .modal .field .val { font-size: 14px; }
-  .modal .desc { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 13px; white-space: pre-wrap; margin: 12px 0; }
+  .modal .field { flex: 1; min-width: 130px; }
+  .modal .field .lbl { color: var(--muted); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 3px; }
+  .modal .field .val { font-size: 14px; font-family: var(--font-mono); }
+  .modal .desc { background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--r); padding: 10px 12px; font-size: 13px; white-space: pre-wrap; margin: 12px 0; }
   .modal .subtasks { list-style: none; margin-top: 8px; }
-  .modal .subtasks li { display: flex; gap: 8px; align-items: center; padding: 5px 0; font-size: 13px; }
+  .modal .subtasks li { display: flex; gap: 8px; align-items: center; padding: 5px 0; font-size: 13px; font-family: var(--font-mono); }
   .modal .subtasks .chk { color: var(--done); }
   .modal .subtasks .unchk { color: var(--muted); }
   .modal .close {
-    margin-top: 16px; width: 100%; padding: 9px; border-radius: 8px; border: 1px solid var(--border);
-    background: var(--panel-2); color: var(--text); cursor: pointer; font-size: 13px; font-family: inherit;
+    margin-top: 16px; width: 100%; padding: 9px; border-radius: var(--r); border: 1px solid var(--border);
+    background: var(--panel-2); color: var(--text); cursor: pointer; font-size: 12px;
+    font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .1em;
   }
   .modal .close:hover { border-color: var(--accent); }
 
-  footer { padding: 14px 20px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); background: var(--panel); }
+  footer { padding: 12px 20px; color: var(--muted); font-size: 10px; border-top: 1px solid var(--border); background: var(--panel); font-family: var(--font-mono); }
   footer code { color: var(--text); }
 
   /* ---------- Timesheet ---------- */
-  .ts-toolbar {
-    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;
-  }
-  .ts-range { display: flex; gap: 4px; background: var(--panel-2); padding: 3px; border-radius: 8px; border: 1px solid var(--border); }
+  .ts-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ts-range { display: flex; gap: 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
   .ts-range button {
-    background: none; border: none; color: var(--muted); font-size: 12px;
-    padding: 4px 12px; border-radius: 6px; cursor: pointer; font-family: inherit;
+    background: transparent; border: none; color: var(--muted); font-size: 11px;
+    padding: 6px 13px; cursor: pointer; font-family: var(--font-mono);
+    text-transform: uppercase; letter-spacing: .08em; border-right: 1px solid var(--border);
   }
-  .ts-range button.active { background: var(--accent); color: #04121f; font-weight: 600; }
+  .ts-range button:last-child { border-right: none; }
+  .ts-range button:hover { color: var(--text); background: var(--panel-2); }
+  .ts-range button.active { background: var(--accent); color: #000; font-weight: 700; }
   .ts-nav {
-    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
-    width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 15px; line-height: 1;
+    background: transparent; border: 1px solid var(--border); color: var(--text);
+    width: 30px; height: 30px; border-radius: var(--r); cursor: pointer; font-size: 15px; line-height: 1;
   }
   .ts-nav:hover { border-color: var(--accent); }
-  .ts-label { font-weight: 600; font-size: 14px; }
-  .ts-today { background: none; border: 1px solid var(--border); color: var(--muted); font-size: 11px; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-family: inherit; }
+  .ts-label { font-family: var(--font-mono); font-weight: 600; font-size: 13px; }
+  .ts-today { background: none; border: 1px solid var(--border); color: var(--muted); font-family: var(--font-mono); font-size: 10px; padding: 6px 10px; border-radius: var(--r); cursor: pointer; text-transform: uppercase; letter-spacing: .06em; }
   .ts-today:hover { color: var(--accent); border-color: var(--accent); }
-  .ts-total { margin-left: auto; color: var(--muted); font-size: 12px; }
-  .ts-total b { color: var(--text); font-size: 15px; }
+  .ts-total { margin-left: auto; color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+  .ts-total b { color: var(--text); font-size: 13px; }
 
-  .ts-layout { display: grid; grid-template-columns: 1fr 300px; gap: 16px; align-items: start; }
+  .ts-layout { display: grid; grid-template-columns: 1fr 280px; gap: 14px; align-items: start; }
   @media (max-width: 900px) { .ts-layout { grid-template-columns: 1fr; } }
 
-  /* Calendar grid */
   .ts-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
   @media (max-width: 1000px) { .ts-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { .ts-grid { grid-template-columns: 1fr; } }
   .ts-day {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: var(--r);
     min-height: 280px; display: flex; flex-direction: column;
   }
   .ts-day.today { border-color: var(--accent); }
-  .ts-day-head {
-    padding: 8px 10px; border-bottom: 1px solid var(--border);
-    display: flex; align-items: baseline; gap: 6px;
-  }
-  .ts-day-head .dow { font-size: 11px; color: var(--muted); font-weight: 600; }
-  .ts-day-head .date { font-size: 13px; font-weight: 600; }
-  .ts-day-head .sum { margin-left: auto; font-size: 11px; color: var(--muted); }
+  .ts-day-head { padding: 8px 10px; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 6px; }
+  .ts-day-head .dow { font-family: var(--font-mono); font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .ts-day-head .date { font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+  .ts-day-head .sum { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
   .ts-day-body { padding: 8px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
 
   .ts-entry {
-    border-radius: 7px; padding: 7px 9px; position: relative;
+    border-radius: var(--r); padding: 7px 9px; position: relative;
     background: var(--panel-2); border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
+    border-left: 2px solid var(--accent);
   }
   .ts-entry .t { font-size: 12px; font-weight: 500; word-break: break-word; }
-  .ts-entry .d { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .ts-entry .proj { font-size: 10px; color: var(--muted); margin-top: 3px; }
+  .ts-entry .d { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .ts-entry .proj { font-family: var(--font-mono); font-size: 9px; color: var(--muted); margin-top: 3px; text-transform: uppercase; }
 
-  /* Month view */
   .ts-month { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-  .ts-month .mhead { font-size: 11px; color: var(--muted); text-align: center; padding: 4px 0; font-weight: 600; }
-  .ts-mcell {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
-    min-height: 80px; padding: 5px 6px; cursor: pointer;
-  }
+  .ts-month .mhead { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-align: center; padding: 4px 0; font-weight: 600; text-transform: uppercase; }
+  .ts-mcell { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); min-height: 78px; padding: 5px 6px; cursor: pointer; }
   .ts-mcell:hover { border-color: var(--accent); }
   .ts-mcell.blank { background: transparent; border: none; cursor: default; }
-  .ts-mcell .num { font-size: 11px; color: var(--muted); }
-  .ts-mcell .sum { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .ts-mcell .num { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+  .ts-mcell .sum { font-family: var(--font-mono); font-size: 9px; color: var(--muted); margin-top: 2px; }
   .ts-mcell .chip { display: flex; align-items: center; gap: 4px; font-size: 10px; margin-top: 3px; color: var(--text); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-  .ts-mcell .chip .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .ts-mcell .chip .dot { width: 6px; height: 6px; flex-shrink: 0; }
 
-  /* Tasks sidebar (timesheet) */
   .ts-side { display: flex; flex-direction: column; gap: 8px; }
-  .ts-side .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
-  .ts-side .panel h4 { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 8px; }
-  .ts-task {
-    background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
-    padding: 8px 10px; margin-bottom: 6px;
-  }
+  .ts-side .panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r); padding: 12px; }
+  .ts-side .panel h4 { font-family: var(--font-mono); font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 9px; }
+  .ts-task { background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--r); padding: 8px 10px; margin-bottom: 6px; }
   .ts-task .t { font-size: 12px; font-weight: 500; word-break: break-word; }
   .ts-task .meta { display: flex; gap: 6px; align-items: center; margin-top: 4px; flex-wrap: wrap; }
-  .ts-task .tag { font-size: 10px; color: var(--muted); }
-  .ts-task .pbar { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; margin-top: 6px; }
-  .ts-task .pbar span { display: block; height: 100%; border-radius: 999px; }
-  .ts-task .log { font-size: 10px; color: var(--muted); margin-top: 4px; }
+  .ts-task .tag { font-family: var(--font-mono); font-size: 9px; color: var(--muted); text-transform: uppercase; }
+  .ts-task .pbar { height: 4px; background: var(--border); overflow: hidden; margin-top: 6px; }
+  .ts-task .pbar span { display: block; height: 100%; }
+  .ts-task .log { font-family: var(--font-mono); font-size: 9px; color: var(--muted); margin-top: 4px; }
 
   /* ---------- Mobile: hamburger + drawer ---------- */
   .hamburger {
     display: none;
-    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
-    width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 18px; line-height: 1;
-    flex-shrink: 0;
+    background: transparent; border: 1px solid var(--border); color: var(--text);
+    width: 34px; height: 34px; border-radius: var(--r); cursor: pointer; font-size: 16px; line-height: 1;
+    flex-shrink: 0; font-family: var(--font-mono);
   }
   .hamburger:hover { border-color: var(--accent); }
-  .backdrop {
-    display: none;
-    position: fixed; inset: 0; background: rgba(1,4,9,.6); z-index: 40;
-  }
+  .backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 40; }
   .backdrop.show { display: block; }
 
   @media (max-width: 768px) {
     .hamburger { display: block; }
     .sidebar {
       position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
-      width: 260px; transform: translateX(-100%); transition: transform .22s ease;
-      box-shadow: 4px 0 24px rgba(0,0,0,.5);
+      width: 260px; transform: translateX(-100%); transition: transform .2s ease;
+      border-right: 1px solid var(--border);
     }
     .sidebar.open { transform: translateX(0); }
     .views { order: 3; width: 100%; margin-left: 0; overflow-x: auto; }
@@ -298,30 +354,35 @@
     .content { padding: 12px; }
     .list-table-wrap { overflow-x: auto; }
     footer { display: none; }
+    .statusbar { font-size: 9px; gap: 8px; }
   }
 </style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">📋 PM <span>Board</span></div>
-    <div id="projectList"></div>
-    <div class="hint">อัปเดตงานผ่าน Discord<br>ข้อมูลจาก <code>data.json</code></div>
-  </aside>
+  <div class="statusbar" id="statusbar"></div>
 
-  <div class="main">
-    <div class="topbar">
-      <button class="hamburger" id="hamburger" aria-label="เมนู">☰</button>
-      <h1 id="projTitle">ทุกโปรเจกต์</h1>
-      <span class="meta" id="updated"></span>
-      <div class="views">
-        <button data-view="dashboard">Dashboard</button>
-        <button data-view="kanban" class="active">Kanban</button>
-        <button data-view="list">List</button>
-        <button data-view="timesheet">Timesheet</button>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">PM<span class="dim">/BOARD</span></div>
+      <div id="projectList"></div>
+      <div class="hint">READ-ONLY — UPDATE VIA DISCORD<br>SRC: <code>data.json</code></div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <button class="hamburger" id="hamburger" aria-label="เมนู">☰</button>
+        <h1 id="projTitle">ทุกโปรเจกต์</h1>
+        <span class="meta" id="updated"></span>
+        <div class="views">
+          <button data-view="dashboard">Dashboard</button>
+          <button data-view="kanban" class="active">Kanban</button>
+          <button data-view="list">List</button>
+          <button data-view="timesheet">Timesheet</button>
+        </div>
       </div>
+      <div class="content" id="content"></div>
+      <footer>READ-ONLY — อัปเดตผ่าน Discord → แก้ <code>data.json</code> → push → หน้าอัปเดตอัตโนมัติ</footer>
     </div>
-    <div class="content" id="content"></div>
-    <footer>อ่านอย่างเดียว — สั่งงานผ่าน Discord → ผมแก้ <code>data.json</code> → push → หน้าอัปเดตอัตโนมัติ</footer>
   </div>
 
   <div class="backdrop" id="backdrop"></div>
@@ -334,9 +395,9 @@
 const COL_COLORS = { "วางแผน": "var(--plan)", "กำลังทำ": "var(--doing)", "รอทดสอบ": "var(--test)", "เสร็จ": "var(--done)" };
 const PRIO = { "สูง": "high", "กลาง": "mid", "ต่ำ": "low" };
 const CATEGORIES = [
-  { id: "work", label: "Work", emoji: "💼", color: "#58a6ff" },
-  { id: "life", label: "Life", emoji: "🏠", color: "#3fb950" },
-  { id: "college", label: "College", emoji: "🎓", color: "#d29922" }
+  { id: "work", label: "Work", emoji: "▦", color: "#58a6ff" },
+  { id: "life", label: "Life", emoji: "▣", color: "#3fb950" },
+  { id: "college", label: "College", emoji: "◈", color: "#f0b429" }
 ];
 const CAT_META = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
 const TH_DAYS = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
@@ -367,9 +428,26 @@ function fmtDur(mins) {
 async function load() {
   const res = await fetch("data.json", { cache: "no-store" });
   DATA = await res.json();
-  document.getElementById("updated").textContent = "อัปเดตล่าสุด " + (DATA.updated || "—");
+  renderStatusbar();
+  document.getElementById("updated").textContent = "UPD " + (DATA.updated || "—");
   renderSidebar();
   render();
+}
+
+function renderStatusbar() {
+  const sb = document.getElementById("statusbar");
+  const tasks = allTasks().length;
+  const projs = DATA.projects.length;
+  const logs = (DATA.time_entries || []).length;
+  sb.innerHTML = `
+    <span class="sb-brand">PM<span class="dim">/BOARD</span></span>
+    <span class="sb-sep"></span>
+    <span class="sb-item">TASKS <b>${tasks}</b></span>
+    <span class="sb-item">PROJ <b>${projs}</b></span>
+    <span class="sb-item">LOG <b>${logs}</b></span>
+    <span class="sb-sep"></span>
+    <span class="sb-item">UPD <b>${DATA.updated}</b></span>
+    <span class="sb-right">SYS.OK<span class="cursor">█</span></span>`;
 }
 
 /* ---------- Data access (read-only, from data.json) ---------- */
@@ -446,7 +524,7 @@ function renderSidebar() {
     if (projs.length === 0) {
       const empty = document.createElement("div");
       empty.className = "cat-empty";
-      empty.textContent = "— ยังไม่มีโปรเจกต์ —";
+      empty.textContent = "// empty";
       group.appendChild(empty);
       el.appendChild(group);
       continue;
@@ -529,7 +607,7 @@ function projRow(p) {
       <div class="head">
         <span class="project-dot" style="background:${p.color}"></span>
         <span class="name">${p.name}</span>
-        <span class="sub">${done}/${tasks.length} เสร็จ · ${pct}%</span>
+        <span class="sub">${done}/${tasks.length} DONE · ${pct}%</span>
       </div>
       <div class="bar"><span style="width:${pct}%;background:${p.color}"></span></div>
     </div>`;
@@ -571,7 +649,7 @@ function renderKanban() {
             <span class="project-dot" style="background:${COL_COLORS[c] || "var(--accent)"}"></span>
             <h2>${c}</h2><span class="count">${inCol.length}</span>
           </div>
-          ${inCol.length ? inCol.map(card).join("") : `<div class="empty">— ว่าง —</div>`}
+          ${inCol.length ? inCol.map(card).join("") : `<div class="empty">// ว่าง</div>`}
         </div>`;
       }).join("")}
     </div>`;
@@ -585,7 +663,7 @@ function card(t) {
   (t.tags || []).forEach(tag => badges.push(`<span class="badge tag">#${tag}</span>`));
   const subDone = (t.subtasks || []).filter(s => s.done).length;
   const subTotal = (t.subtasks || []).length;
-  const subTxt = subTotal ? ` · ✓ ${subDone}/${subTotal}` : "";
+  const subTxt = subTotal ? ` · ✓${subDone}/${subTotal}` : "";
   return `
     <div class="card" data-id="${t.id}">
       <div class="title">${t.title}</div>
@@ -631,13 +709,13 @@ function bindCards() {
 
 function showModal(t) {
   const subs = (t.subtasks || []).map(s =>
-    `<li><span class="${s.done ? "chk" : "unchk"}">${s.done ? "☑" : "☐"}</span>${s.title}</li>`).join("");
+    `<li><span class="${s.done ? "chk" : "unchk"}">${s.done ? "▣" : "▢"}</span>${s.title}</li>`).join("");
   const modal = document.getElementById("modal");
   modal.innerHTML = `
     <h3>${t.title}</h3>
     <div class="proj-label">${t.project.name}</div>
     ${t.description ? `<div class="desc">${t.description}</div>` : ""}
-    ${t.note ? `<div class="desc">📌 ${t.note}</div>` : ""}
+    ${t.note ? `<div class="desc">// ${t.note}</div>` : ""}
     <div class="row">
       <div class="field"><div class="lbl">สถานะ</div><div class="val">${t.column}</div></div>
       <div class="field"><div class="lbl">สำคัญ</div><div class="val">${t.priority || "—"}</div></div>
@@ -646,7 +724,7 @@ function showModal(t) {
     </div>
     ${(t.tags || []).length ? `<div class="field"><div class="lbl">แท็ก</div><div class="val">${t.tags.map(x => `#${x}`).join(" ")}</div></div>` : ""}
     ${subs ? `<div class="field" style="margin-top:12px"><div class="lbl">งานย่อย</div><ul class="subtasks">${subs}</ul></div>` : ""}
-    <button class="close" onclick="document.getElementById('overlay').classList.add('hidden')">ปิด</button>`;
+    <button class="close" onclick="document.getElementById('overlay').classList.add('hidden')">[ ปิด ]</button>`;
   document.getElementById("overlay").classList.remove("hidden");
 }
 
@@ -673,7 +751,7 @@ function renderTimesheet() {
       <span class="ts-label">${label}</span>
       <button class="ts-nav" id="tsNext">›</button>
       <button class="ts-today" id="tsToday">วันนี้</button>
-      <span class="ts-total">รวม: <b>${fmtDur(totalMin)}</b></span>
+      <span class="ts-total">TOTAL <b>${fmtDur(totalMin)}</b></span>
     </div>
     <div class="ts-layout">
       <div id="tsGrid"></div>
@@ -776,7 +854,7 @@ function dayColumn(iso) {
         <span class="sum">${sum ? fmtDur(sum) : ""}</span>
       </div>
       <div class="ts-day-body">
-        ${entries.length ? entries.map(entryCard).join("") : `<div class="empty" style="padding:12px 0">— ว่าง —</div>`}
+        ${entries.length ? entries.map(entryCard).join("") : `<div class="empty" style="padding:12px 0">// ว่าง</div>`}
       </div>
     </div>`;
 }
@@ -825,15 +903,15 @@ function renderTsSide() {
   document.getElementById("tsSide").innerHTML = `
     <div class="panel">
       <h4>Active Tasks</h4>
-      <div>${active.length ? active.map(tsTask).join("") : `<div class="empty" style="padding:10px 0">— ไม่มีงาน —</div>`}</div>
+      <div>${active.length ? active.map(tsTask).join("") : `<div class="empty" style="padding:10px 0">// empty</div>`}</div>
     </div>
     <div class="panel">
-      <h4>Upcoming (กำหนดวัน)</h4>
-      <div>${withDue.length ? withDue.slice(0, 6).map(tsTask).join("") : `<div class="empty" style="padding:10px 0">— ไม่มี —</div>`}</div>
+      <h4>Upcoming</h4>
+      <div>${withDue.length ? withDue.slice(0, 6).map(tsTask).join("") : `<div class="empty" style="padding:10px 0">// empty</div>`}</div>
     </div>
     <div class="panel">
       <h4>Completed</h4>
-      <div>${completed.length ? completed.slice(0, 6).map(tsTask).join("") : `<div class="empty" style="padding:10px 0">— ไม่มี —</div>`}</div>
+      <div>${completed.length ? completed.slice(0, 6).map(tsTask).join("") : `<div class="empty" style="padding:10px 0">// empty</div>`}</div>
     </div>`;
 }
 
@@ -851,9 +929,9 @@ function tsTask(t) {
       </div>
       ${planned ? `
         <div class="pbar"><span style="width:${pct}%;background:${color}"></span></div>
-        <div class="log">Logged ${fmtDur(logged)} / ${fmtDur(planned)}${pct ? ` (${pct}%)` : ""}</div>
+        <div class="log">LOG ${fmtDur(logged)} / ${fmtDur(planned)}${pct ? ` (${pct}%)` : ""}</div>
       ` : `
-        <div class="log">Logged ${fmtDur(logged)}</div>
+        <div class="log">LOG ${fmtDur(logged)}</div>
       `}
     </div>`;
 }
