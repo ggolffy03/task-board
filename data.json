@@ -171,7 +171,7 @@
         {
           "id": "t-011",
           "title": "UI Web HR — อนุมัติคำขอ",
-          "column": "วางแผน",
+          "column": "กำลังทำ",
           "description": "",
           "progress": 0,
           "priority": "กลาง",
@@ -179,7 +179,10 @@
           "tags": ["ui", "hr-web"],
           "subtasks": [
             { "title": "เพิ่ม Badge แสดงผู้อนุมัติ + เวลา", "done": false },
-            { "title": "เปลี่ยนการแสดงผลรายละเอียดเป็น pop up", "done": false }
+            { "title": "เปลี่ยนการแสดงผลรายละเอียดเป็น pop up", "done": false },
+            { "title": "UI ตรงตามที่ Vibe ยังไม่เช็ค", "done": false },
+            { "title": "การทำงานของ Combo Box ถูกต้อง", "done": true },
+            { "title": "การแสดงผลของ Pop Up ถูกต้อง", "done": true }
           ],
           "note": "",
           "updated": "2026-11-01"
