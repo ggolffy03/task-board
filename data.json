@@ -220,6 +220,33 @@
           "updated": "2026-11-01"
         }
       ]
+    },
+    {
+      "id": "p-004",
+      "name": "ชีวิตประจำวัน",
+      "category": "life",
+      "description": "สิ่งที่ต้องทำในชีวิตประจำวัน",
+      "color": "#3fb950",
+      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "tasks": [
+        {
+          "id": "t-012",
+          "title": "ติดตั้งระบบแบ่ง Layout ของหน้าจอ Windows 11",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["windows", "setup"],
+          "subtasks": [
+            { "title": "Microsoft PowerToys (FancyZones)", "done": false },
+            { "title": "DisplayFusion", "done": false },
+            { "title": "Windhawk", "done": false }
+          ],
+          "note": "ตัวเลือกเครื่องมือ (เลือกใช้ตัวใดตัวหนึ่ง)",
+          "updated": "2026-11-01"
+        }
+      ]
     }
   ]
 }
