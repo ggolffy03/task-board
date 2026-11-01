@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-01",
-  "timeLogs": [],
+  "time_entries": [],
   "projects": [
     {
       "id": "p-001",
@@ -8,7 +8,34 @@
       "description": "ระบบบริหารทรัพยากรบุคคล (Human Resource Management)",
       "color": "#58a6ff",
       "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
-      "tasks": []
+      "tasks": [
+        {
+          "id": "t-001",
+          "title": "Set up Google Cloud + นำโปรเจกต์ไปรัน",
+          "column": "กำลังทำ",
+          "description": "",
+          "progress": 0,
+          "priority": "สูง",
+          "due": null,
+          "tags": ["cloud"],
+          "subtasks": [],
+          "note": "สมัคร Google Cloud แล้ว",
+          "updated": "2026-11-01"
+        },
+        {
+          "id": "t-002",
+          "title": "Redesign UI แอปใหม่หมดทั้งคอมและมือถือ",
+          "column": "กำลังทำ",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": ["ui"],
+          "subtasks": [],
+          "note": "กำลังไล่แก้ UI",
+          "updated": "2026-11-01"
+        }
+      ]
     },
     {
       "id": "p-002",
