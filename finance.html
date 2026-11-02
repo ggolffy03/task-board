@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FINANCE // 8-BIT DASHBOARD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffe8f0;
+    --bg-dark: #1a1a2e;
+    --panel: #ffffff;
+    --ink: #111111;
+    --ink-2: #1f1f1f;
+    --gold: #ffd166;
+    --red: #ef233c;
+    --red-2: #e63946;
+    --teal: #4ecdc4;
+    --pink: #ff9fb6;
+    --pixel: 0px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Kanit", "Noto Sans Thai", sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+    image-rendering: pixelated;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .pixel { border: 4px solid var(--ink); box-shadow: 6px 6px 0 rgba(0,0,0,.85); background: var(--panel); }
+  .mono { font-family: "Press Start 2P", "Silkscreen", monospace; }
+  .thin { font-family: "Silkscreen", monospace; }
+
+  /* ---------- HUD ---------- */
+  .hud {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 18px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .hud .logo {
+    font-family: "Press Start 2P", monospace; font-size: 15px; font-weight: 400;
+    background: #fff; border: 4px solid var(--ink); padding: 10px 14px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,.85); white-space: nowrap;
+  }
+  .hud .coin-row { display: flex; align-items: center; gap: 10px; }
+  .coin {
+    width: 26px; height: 26px; background: var(--gold);
+    border: 3px solid var(--ink); border-radius: 50%;
+    box-shadow: inset -3px -3px 0 #d9a820, 2px 2px 0 rgba(0,0,0,.6);
+    flex-shrink: 0;
+  }
+  .hud .worth { font-family: "Press Start 2P", monospace; font-size: 18px; }
+  .hud .worth small { font-family: "Kanit"; font-size: 12px; font-weight: 600; display: block; }
+  .hud .spacer { flex: 1; }
+  .risk { min-width: 200px; }
+  .risk .lbl { font-size: 10px; font-family: "Silkscreen"; margin-bottom: 5px; letter-spacing: 1px; }
+  .risk .bar { height: 18px; border: 3px solid var(--ink); background: #fff; box-shadow: 3px 3px 0 rgba(0,0,0,.5); }
+  .risk .bar > span { display: block; height: 100%; background: var(--teal); }
+
+  /* ---------- Milestone stepper ---------- */
+  .stepper { display: flex; align-items: flex-start; gap: 6px; padding: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; min-width: 80px; text-align: center; }
+  .step .node {
+    width: 30px; height: 30px; border: 3px solid var(--ink); background: #fff;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.7); display: flex; align-items: center; justify-content: center;
+    font-family: "Press Start 2P"; font-size: 10px;
+  }
+  .step.done .node { background: var(--gold); }
+  .step.cur .node { background: var(--pink); }
+  .step .lbl { font-size: 10px; font-weight: 700; }
+  .step .link { height: 3px; background: var(--ink); flex: 1; margin-top: 13px; }
+  @media (max-width: 640px) { .step .link { display: none; } }
+
+  /* ---------- Dialogue box ---------- */
+  .dialogue { position: relative; padding: 16px 18px; margin-bottom: 20px; }
+  .dialogue .tag {
+    position: absolute; top: -14px; left: 14px; background: #fff;
+    border: 3px solid var(--ink); padding: 3px 10px; font-family: "Silkscreen"; font-size: 11px;
+  }
+  .dialogue p { font-size: 14px; font-weight: 600; }
+
+  /* ---------- Grid sections ---------- */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  .card { padding: 16px; }
+  .card h2 {
+    font-family: "Silkscreen"; font-size: 13px; letter-spacing: 1px;
+    border-bottom: 3px solid var(--ink); padding-bottom: 8px; margin-bottom: 12px;
+  }
+  .full { grid-column: 1 / -1; }
+
+  /* Wallet rows */
+  .wallet { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 2px dashed #ccc; }
+  .wallet:last-child { border-bottom: none; }
+  .wallet .n { flex: 1; font-weight: 700; font-size: 13px; }
+  .wallet .n small { display: block; font-weight: 400; color: #666; font-size: 11px; }
+  .wallet .v { font-family: "Press Start 2P"; font-size: 11px; }
+  .wallet .v.neg { color: var(--red); }
+
+  /* Allocation */
+  .alloc { display: flex; flex-direction: column; gap: 12px; }
+  .alloc .row { display: flex; align-items: center; gap: 10px; }
+  .alloc .row .lbl { width: 150px; font-size: 11px; font-weight: 700; }
+  .alloc .track { flex: 1; height: 20px; border: 3px solid var(--ink); background: #fff; }
+  .alloc .track > span { display: block; height: 100%; }
+  .alloc .row .pct { font-family: "Silkscreen"; font-size: 12px; width: 40px; text-align: right; }
+
+  /* Quest log */
+  .quest { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+  .quest .chk {
+    width: 22px; height: 22px; border: 3px solid var(--ink); background: #fff; flex-shrink: 0;
+    box-shadow: 2px 2px 0 rgba(0,0,0,.6); display: flex; align-items: center; justify-content: center;
+    font-family: "Press Start 2P"; font-size: 9px; color: var(--red);
+  }
+  .quest.done .chk { background: var(--gold); }
+  .quest .t { font-size: 13px; font-weight: 600; }
+  .quest.done .t { text-decoration: line-through; color: #888; }
+
+  /* Transactions */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { font-family: "Silkscreen"; font-size: 10px; text-align: left; border-bottom: 3px solid var(--ink); padding: 6px 8px; }
+  td { padding: 7px 8px; border-bottom: 2px solid #eee; }
+  td.amt { font-family: "Silkscreen"; text-align: right; white-space: nowrap; }
+  td.amt.in { color: #2a9d3f; }
+  td.amt.out { color: var(--red); }
+  tr:nth-child(even) td { background: #fff5f8; }
+
+  /* Buttons */
+  .btn {
+    display: inline-block; padding: 10px 18px; border: 3px solid var(--ink);
+    background: var(--red); color: #fff; font-family: "Silkscreen"; font-size: 12px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,.85); cursor: pointer; letter-spacing: 1px;
+  }
+  .btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 rgba(0,0,0,.85); }
+  .btn.gold { background: var(--gold); color: var(--ink); }
+
+  footer { margin-top: 24px; text-align: center; font-family: "Silkscreen"; font-size: 10px; color: #666; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hud pixel">
+    <div class="logo">💰 FINANCE</div>
+    <div class="coin-row">
+      <div class="coin"></div>
+      <div class="worth" id="netWorth">—<small>Net Worth / เงินคงเหลือรวม</small></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="risk">
+      <div class="lbl">LEVEL // SAVING DISCIPLINE</div>
+      <div class="bar"><span id="riskBar" style="width:0%"></span></div>
+    </div>
+  </div>
+
+  <div class="stepper pixel" id="stepper"></div>
+
+  <div class="dialogue pixel">
+    <span class="tag">📜 INSIGHT</span>
+    <p id="insight"></p>
+  </div>
+
+  <div class="grid">
+    <div class="card pixel">
+      <h2>👛 บัญชี / กระเป๋าเงิน</h2>
+      <div id="wallets"></div>
+    </div>
+    <div class="card pixel">
+      <h2>📦 MAKE Pockets</h2>
+      <div id="pockets"></div>
+    </div>
+    <div class="card pixel">
+      <h2>📊 สัดส่วนเงิน (Allocation)</h2>
+      <div class="alloc" id="allocation"></div>
+    </div>
+    <div class="card pixel">
+      <h2>🎯 Monthly Quest Log</h2>
+      <div id="quests"></div>
+      <button class="btn" style="margin-top:12px">+ NEW QUEST</button>
+    </div>
+    <div class="card pixel full">
+      <h2>🧾 Recent Transactions</h2>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>วันที่</th><th>ประเเภท</th><th>หมวด</th><th>รายการ</th><th>กระเป๋า</th><th style="text-align:right">จำนวน</th></tr></thead>
+          <tbody id="txns"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer>FINANCE DASHBOARD — DATA FROM <code>finance.json</code> — UPDATE VIA DISCORD</footer>
+</div>
+
+<script>
+async function load() {
+  const res = await fetch("finance.json", { cache: "no-store" });
+  const d = await res.json();
+  render(d);
+}
+
+const fmt = n => (n == null ? "—" : Number(n).toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ฿");
+
+function render(d) {
+  // Net worth
+  document.getElementById("netWorth").innerHTML = fmt(d.net_worth) +
+    `<small>Net Worth / เงินคงเหลือรวม</small>`;
+
+  // Risk meter = reserve_current / reserve_target
+  const reservePct = d.monthly.reserve_target ? Math.min(100, Math.round(d.monthly.reserve_current / d.monthly.reserve_target * 100)) : 0;
+  document.getElementById("riskBar").style.width = reservePct + "%";
+
+  // Insight
+  document.getElementById("insight").textContent = d.insight || "—";
+
+  // Stepper
+  document.getElementById("stepper").innerHTML = d.milestones.map((m, i, arr) => {
+    const cls = m.done ? "done" : (i === arr.findIndex(x => !x.done) ? "cur" : "");
+    return `<div class="step ${cls}">
+      <div class="node">${m.done ? "✓" : (cls === "cur" ? "▶" : "·")}</div>
+      <div class="lbl">${m.label}</div>
+    </div>`;
+  }).join("");
+
+  // Wallets
+  document.getElementById("wallets").innerHTML = d.wallets.map(w => `
+    <div class="wallet">
+      <span class="n">${w.name}${w.note ? `<small>${w.note}</small>` : ""}</span>
+      <span class="v">${fmt(w.balance)}</span>
+    </div>`).join("");
+
+  // Pockets
+  document.getElementById("pockets").innerHTML = d.pockets.map(p => `
+    <div class="wallet">
+      <span class="n">${p.name}</span>
+      <span class="v">${fmt(p.balance)}</span>
+    </div>`).join("");
+
+  // Allocation
+  document.getElementById("allocation").innerHTML = d.allocation.map(a => `
+    <div class="row">
+      <span class="lbl">${a.label}</span>
+      <div class="track"><span style="width:${a.pct}%;background:${a.color}"></span></div>
+      <span class="pct">${a.pct}%</span>
+    </div>`).join("");
+
+  // Quests
+  document.getElementById("quests").innerHTML = d.quests.map(q => `
+    <div class="quest ${q.done ? "done" : ""}">
+      <span class="chk">${q.done ? "✓" : ""}</span>
+      <span class="t">${q.title}</span>
+    </div>`).join("");
+
+  // Transactions
+  document.getElementById("txns").innerHTML = d.transactions.map(t => `
+    <tr>
+      <td>${t.date}</td>
+      <td>${t.type}</td>
+      <td>${t.category}</td>
+      <td>${t.item}</td>
+      <td>${t.wallet || "—"}</td>
+      <td class="amt ${t.type === "รับ" ? "in" : "out"}">${t.type === "รับ" ? "+" : "−"}${fmt(t.amount)}</td>
+    </tr>`).join("");
+}
+
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "updated": "2026-11-01",
+  "currency": "บาท",
+  "net_worth": 1916.00,
+  "wallets": [
+    { "id": "w-1", "name": "MAKE by KBank", "balance": 1581.00, "note": "บัญชีหลัก" },
+    { "id": "w-2", "name": "KPLUS", "balance": 145.00, "note": "พร้อมใช้" },
+    { "id": "w-3", "name": "เป๋าตังค์", "balance": 120.00, "note": "พร้อมใช้" },
+    { "id": "w-4", "name": "ทรูมันนี่", "balance": 70.00, "note": "พร้อมใช้" }
+  ],
+  "pockets": [
+    { "name": "Cashbox", "balance": 283.00 },
+    { "name": "Need", "balance": 1195.00 },
+    { "name": "แมว", "balance": 3.00 },
+    { "name": "Saving", "balance": 100.00 }
+  ],
+  "monthly": {
+    "income": 10000.00,
+    "expense": 7800.00,
+    "net": 2200.00,
+    "reserve_target": 30000.00,
+    "reserve_current": 0.00
+  },
+  "allocation": [
+    { "label": "ค่าใช้จ่ายประจำวัน", "pct": 55, "color": "#FFD166" },
+    { "label": "เงินสำรองฉุกเฉิน", "pct": 30, "color": "#EF233C" },
+    { "label": "ลงทุนระยะยาว", "pct": 15, "color": "#4ECDC4" }
+  ],
+  "milestones": [
+    { "label": "รายรับ", "done": true },
+    { "label": "ค่าใช้จ่ายคงที่", "done": true },
+    { "label": "เงินลงทุน", "done": false },
+    { "label": "หนี้สิน", "done": false },
+    { "label": "เงินออมฉุกเฉิน", "done": false }
+  ],
+  "quests": [
+    { "id": "q-1", "title": "เก็บเงินสำรองให้ถึง 30,000 บาท", "done": false },
+    { "id": "q-2", "title": "จ่ายค่ารีเทนเนอร์ 10,000 บาท (สิ้นปี 2026)", "done": false },
+    { "id": "q-3", "title": "หาเงินเสริม 3,400 บาท สำหรับรีเทนเนอร์", "done": false },
+    { "id": "q-4", "title": "กองทุนแมวสะสมถึง 3,000 บาท", "done": false }
+  ],
+  "insight": "เดือนนี้รายจ่ายสูงกว่ารายรับ โฟกัสที่การเก็บเงินสำรองฉุกเฉินก่อนเริ่มลงทุน",
+  "transactions": [
+    { "id": "tx-1", "date": "2026-11-01", "type": "จ่าย", "category": "อื่นๆ", "item": "กัญชา", "amount": 67.00, "wallet": "MAKE: Cashbox" },
+    { "id": "tx-2", "date": "2026-10-31", "type": "จ่าย", "category": "แมว", "item": "อาหารแมว (12 ซอง)", "amount": 178.00, "wallet": "MAKE: แมว" },
+    { "id": "tx-3", "date": "2026-10-31", "type": "จ่าย", "category": "แมว", "item": "แปรงขนแมว + สเปรย์", "amount": 179.00, "wallet": "MAKE: แมว" },
+    { "id": "tx-4", "date": "2026-10-30", "type": "จ่าย", "category": "อาหาร", "item": "ก๊วยเตี๋ยว", "amount": 50.00, "wallet": "MAKE: Need" },
+    { "id": "tx-5", "date": "2026-10-29", "type": "จ่าย", "category": "ส่วนตัว", "item": "ทำเล็บ", "amount": 260.00, "wallet": "MAKE: Cashbox" },
+    { "id": "tx-6", "date": "2026-10-28", "type": "จ่าย", "category": "ช้อปปิ้ง", "item": "ซื้อรองเท้า", "amount": 1150.00, "wallet": "MAKE: Cashbox" },
+    { "id": "tx-7", "date": "2026-10-26", "type": "รับ", "category": "เงินสนับสนุน", "item": "จากป๊า", "amount": 2700.00, "wallet": "" },
+    { "id": "tx-8", "date": "2026-10-23", "type": "จ่าย", "category": "ซอฟต์แวร์/บริการ", "item": "Claude Pro Plan", "amount": 747.00, "wallet": "" }
+  ]
+}
