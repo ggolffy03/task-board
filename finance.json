@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "currency": "บาท",
-  "net_worth": 1814.0,
+  "net_worth": 1747.0,
   "wallets": [
     {
       "id": "w-1",
       "name": "MAKE by KBank",
-      "balance": 1481.0,
+      "balance": 1414.0,
       "note": "บัญชีหลัก"
     },
     {
@@ -31,7 +31,7 @@
   "pockets": [
     {
       "name": "Cashbox",
-      "balance": 183.0
+      "balance": 116.0
     },
     {
       "name": "Need",
@@ -118,11 +118,11 @@
   "transactions": [
     {
       "id": "tx-1",
-      "date": "2026-11-02",
+      "date": "2026-11-03",
       "type": "จ่าย",
-      "category": "อาหาร",
-      "item": "ข้าว",
-      "amount": 100.0,
+      "category": "อื่นๆ",
+      "item": "กัญชา",
+      "amount": 67.0,
       "wallet": "MAKE: Cashbox"
     },
     {
@@ -131,11 +131,20 @@
       "type": "จ่าย",
       "category": "อาหาร",
       "item": "ข้าว",
+      "amount": 100.0,
+      "wallet": "MAKE: Cashbox"
+    },
+    {
+      "id": "tx-3",
+      "date": "2026-11-02",
+      "type": "จ่าย",
+      "category": "อาหาร",
+      "item": "ข้าว",
       "amount": 2.0,
       "wallet": "ทรูมันนี่"
     },
     {
-      "id": "tx-3",
+      "id": "tx-4",
       "date": "2026-11-01",
       "type": "จ่าย",
       "category": "อื่นๆ",
@@ -144,7 +153,7 @@
       "wallet": "MAKE: Cashbox"
     },
     {
-      "id": "tx-4",
+      "id": "tx-5",
       "date": "2026-10-31",
       "type": "จ่าย",
       "category": "แมว",
@@ -153,7 +162,7 @@
       "wallet": "MAKE: แมว"
     },
     {
-      "id": "tx-5",
+      "id": "tx-6",
       "date": "2026-10-31",
       "type": "จ่าย",
       "category": "แมว",
@@ -162,7 +171,7 @@
       "wallet": "MAKE: แมว"
     },
     {
-      "id": "tx-6",
+      "id": "tx-7",
       "date": "2026-10-30",
       "type": "จ่าย",
       "category": "อาหาร",
@@ -171,7 +180,7 @@
       "wallet": "MAKE: Need"
     },
     {
-      "id": "tx-7",
+      "id": "tx-8",
       "date": "2026-10-29",
       "type": "จ่าย",
       "category": "ส่วนตัว",
@@ -180,7 +189,7 @@
       "wallet": "MAKE: Cashbox"
     },
     {
-      "id": "tx-8",
+      "id": "tx-9",
       "date": "2026-10-28",
       "type": "จ่าย",
       "category": "ช้อปปิ้ง",
@@ -189,7 +198,7 @@
       "wallet": "MAKE: Cashbox"
     },
     {
-      "id": "tx-9",
+      "id": "tx-10",
       "date": "2026-10-26",
       "type": "รับ",
       "category": "เงินสนับสนุน",
@@ -198,7 +207,7 @@
       "wallet": ""
     },
     {
-      "id": "tx-10",
+      "id": "tx-11",
       "date": "2026-10-23",
       "type": "จ่าย",
       "category": "ซอฟต์แวร์/บริการ",
