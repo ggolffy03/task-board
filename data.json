@@ -106,15 +106,15 @@
           "subtasks": [
             {
               "title": "แผนก (DepartmentsTab)",
-              "done": false
+              "done": true
             },
             {
               "title": "โปรเจกต์",
-              "done": false
+              "done": true
             },
             {
               "title": "ลูกค้า",
-              "done": false
+              "done": true
             },
             {
               "title": "ไซต์",
@@ -236,7 +236,7 @@
             },
             {
               "title": "ตั้งค่าแผนก",
-              "done": false
+              "done": true
             },
             {
               "title": "ตั้งค่างวดเดือน",
@@ -244,7 +244,7 @@
             },
             {
               "title": "ตั้งค่าโปรเจกต์และลูกค้า",
-              "done": false
+              "done": true
             }
           ],
           "note": "หน้าไม่ตรงตาม ref",
