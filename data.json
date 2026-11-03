@@ -19,7 +19,34 @@
         "รอทดสอบ",
         "เสร็จ"
       ],
-      "tasks": []
+      "tasks": [
+        {
+          "id": "t-015",
+          "title": "[Docs] จดสรุปอัปเดตโจทย์วันนี้",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-03"
+        },
+        {
+          "id": "t-016",
+          "title": "[Process] เรียบเรียง Flow การทำงานใหม่ทั้งหมด",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-03"
+        }
+      ]
     },
     {
       "id": "p-002",
