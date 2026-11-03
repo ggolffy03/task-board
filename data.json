@@ -343,19 +343,47 @@
           ],
           "subtasks": [
             {
-              "title": "ส่วนที่ 1 — LINE LIFF E2E (0/36)",
+              "title": "LIFF E2E — B2 เช็คอินนอกรัศมี: ยังไม่ Block / ไม่มี Flag แจ้ง HR (แค่ไม่ขึ้น GPS)",
               "done": false
             },
             {
-              "title": "ส่วนที่ 2 — เทสต์ทั้งโปรเจ็ค (0/19)",
+              "title": "OT — CA ย้อนหลังได้ไม่จำกัดวัน",
               "done": false
             },
             {
-              "title": "ส่วนที่ 3 — ความสมบูรณ์ของ UI (0/65)",
+              "title": "OT — C4 ปรับปรุงฟอร์ม OT",
+              "done": false
+            },
+            {
+              "title": "UI — D4 ทำการ์ด Segment ใหม่",
+              "done": false
+            },
+            {
+              "title": "UI — D7 แก้คำ Notify เป็นภาษาไทย",
+              "done": false
+            },
+            {
+              "title": "ลา — EA ยื่นลาในวันหยุดไม่ได้",
+              "done": false
+            },
+            {
+              "title": "ลา — EB แก้ Notify ลาวันหยุด",
+              "done": false
+            },
+            {
+              "title": "ลา — EC การ์ดใบลากดแล้ว popup แสดงรายละเอียด",
+              "done": false
+            },
+            {
+              "title": "แจ้งเตือน — FA ปรับปรุง UI หน้าการแจ้งเตือน",
+              "done": false
+            },
+            {
+              "title": "ปฏิทิน — F2 ยังไม่ทำปฏิทินงาน",
               "done": false
             }
           ],
-          "note": "120 checklist แบ่ง 3 ส่วน (36+19+65); ยังไม่มีรายละเอียดรายข้อ",
+          "note": "Time-to-Cost | 120 checklist: LIFF E2E 36 / โปรเจ็ค 19 / UI 65 — กำลังบันทึกผลทีละข้อ",
           "updated": "2026-11-03"
         }
       ]
