@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>COLLEGE // ASSIGNMENT LOG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,14 +18,20 @@
     --ink: #231F20;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     background: var(--bg);
     color: var(--text);
     font-family: "Kanit", "Noto Sans Thai", sans-serif;
-    padding: 24px;
+    padding: 16px;
     min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-tap-highlight-color: transparent;
   }
   .wrap { max-width: 960px; margin: 0 auto; }
+
+  /* Touch targets: Apple HIG recommends ≥44px */
+  button { touch-action: manipulation; }
 
   /* 3D pixel helper */
   .px {
@@ -83,6 +89,7 @@
     background: var(--card); border: 2px solid var(--ink); cursor: pointer;
     box-shadow: 3px 3px 0 rgba(35,31,32,.6); font-family: inherit;
     transition: transform .05s;
+    -webkit-tap-highlight-color: transparent;
   }
   .cal-cell:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 rgba(35,31,32,.6); }
   .cal-cell .day { font-family: "Silkscreen"; font-size: 12px; }
@@ -98,6 +105,25 @@
   }
   .cal-cell .dot.overdue { background: var(--primary); }
   .cal-cell .more { font-size: 9px; color: var(--muted); margin-top: 2px; font-weight: 700; }
+
+  /* Mobile-first (iPhone / iPad): compact but touch-friendly */
+  @media (max-width: 640px) {
+    body { padding: 12px; }
+    .cal { padding: 12px 12px; }
+    .cal-grid { gap: 5px; }
+    .cal-cell { min-height: 56px; padding: 5px; border-width: 2px; }
+    .cal-cell .day { font-size: 11px; }
+    .cal-cell .dot { font-size: 8px; padding: 1px 3px; border: none; }
+    .cal-cell .more { font-size: 8px; }
+    .cal-head .nav { width: 44px; height: 44px; }
+    .hud { gap: 10px; padding: 14px 14px; }
+    .hud .logo { font-size: 11px; padding: 10px 12px; }
+    .stat { padding: 12px 12px; }
+    .stat .n { font-size: 17px; }
+    .card { padding: 14px 14px; }
+    .card .score { position: static; margin-top: 10px; }
+    .mx-quad { min-height: 60px; }
+  }
 
   /* ---------- Assignment cards (list below calendar) ---------- */
   .list { display: flex; flex-direction: column; gap: 18px; }
