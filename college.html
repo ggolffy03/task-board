@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COLLEGE // ASSIGNMENT LOG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFF2E8;
+    --card: #FFFFFF;
+    --primary: #EE4E1D;
+    --secondary: #CF9068;
+    --text: #231F20;
+    --muted: #555555;
+    --ink: #231F20;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Kanit", "Noto Sans Thai", sans-serif;
+    padding: 24px;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+
+  /* 3D pixel helper */
+  .px {
+    background: var(--card);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 rgba(35,31,32,.85);
+  }
+  .mono { font-family: "Press Start 2P", "Silkscreen", monospace; }
+  .thin { font-family: "Silkscreen", monospace; }
+
+  /* ---------- Header HUD ---------- */
+  .hud {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 16px 20px; margin-bottom: 26px;
+  }
+  .hud .logo {
+    font-family: "Press Start 2P", monospace; font-size: 14px;
+    background: var(--primary); color: #fff;
+    border: 3px solid var(--ink); padding: 12px 16px;
+    box-shadow: 5px 5px 0 rgba(35,31,32,.85); white-space: nowrap;
+  }
+  .hud .sub { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .hud .sub b { color: var(--text); }
+  .hud .today {
+    margin-left: auto; text-align: right;
+  }
+  .hud .today .lbl { font-family: "Silkscreen"; font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .hud .today .d {
+    font-family: "Press Start 2P"; font-size: 12px; color: var(--primary); margin-top: 4px;
+  }
+
+  /* ---------- Summary bar ---------- */
+  .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
+  .stat {
+    flex: 1; min-width: 130px; padding: 14px 16px;
+    border: 3px solid var(--ink); box-shadow: 4px 4px 0 rgba(35,31,32,.8); background: var(--card);
+  }
+  .stat .n { font-family: "Press Start 2P"; font-size: 20px; }
+  .stat .n.orange { color: var(--primary); }
+  .stat .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+
+  /* ---------- Assignment cards ---------- */
+  .list { display: flex; flex-direction: column; gap: 18px; }
+  .card { position: relative; padding: 18px 20px; }
+  .card .code {
+    display: inline-block; font-family: "Silkscreen"; font-size: 11px;
+    background: var(--secondary); color: #fff; padding: 4px 10px;
+    border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(35,31,32,.7);
+    margin-bottom: 10px; letter-spacing: 1px;
+  }
+  .card h2 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+  .card .inst { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .card .inst b { color: var(--text); }
+  .card .task {
+    background: #fff8f3; border: 2px dashed var(--secondary);
+    padding: 10px 12px; font-size: 13px; line-height: 1.55; margin-bottom: 14px;
+  }
+  .card .meta { display: flex; gap: 18px; flex-wrap: wrap; }
+  .card .meta .m { min-width: 120px; }
+  .card .meta .m .lbl { font-family: "Silkscreen"; font-size: 8px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .card .meta .m .val { font-size: 13px; font-weight: 600; margin-top: 2px; }
+  .card .score {
+    position: absolute; top: 16px; right: 18px;
+    font-family: "Press Start 2P"; font-size: 15px; color: var(--primary);
+  }
+  .card.due-soon { border-color: var(--primary); }
+  .card.overdue { border-color: var(--primary); background: #FFF5F0; }
+  .card.overdue .badge {
+    display: inline-block; font-family: "Silkscreen"; font-size: 9px;
+    background: var(--primary); color: #fff; padding: 3px 8px; margin-left: 8px;
+    border: 2px solid var(--ink);
+  }
+
+  .empty { padding: 40px 20px; text-align: center; color: var(--muted); }
+  .empty .big { font-family: "Press Start 2P"; font-size: 16px; margin-bottom: 8px; color: var(--text); }
+
+  footer { margin-top: 28px; text-align: center; font-family: "Silkscreen"; font-size: 10px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hud px">
+    <div class="logo">🎓 CLASS LOG</div>
+    <div class="sub">คณะ <b id="faculty">—</b></div>
+    <div class="today">
+      <div class="lbl">TODAY</div>
+      <div class="d" id="today">—</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="stTotal">0</div><div class="lbl">งานทั้งหมด</div></div>
+    <div class="stat"><div class="n orange" id="stPending">0</div><div class="lbl">รอส่ง / ค้าง</div></div>
+    <div class="stat"><div class="n" id="stDone">0</div><div class="lbl">ส่งแล้ว</div></div>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <footer>COLLEGE ASSIGNMENT LOG — DATA FROM <code>college.json</code> — UPDATE VIA DISCORD</footer>
+</div>
+
+<script>
+async function load() {
+  const res = await fetch("college.json", { cache: "no-store" });
+  const d = await res.json();
+  render(d);
+}
+
+const TH_MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+function todayStr() {
+  const t = new Date();
+  return t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+}
+function fmtDate(d) {
+  if (!d) return "—";
+  const [y, m, dd] = d.split("-").map(Number);
+  return `${dd} ${TH_MONTHS[m-1]} ${y}`;
+}
+function fmtToday() {
+  const t = new Date();
+  return `${t.getDate()} ${TH_MONTHS[t.getMonth()]} ${t.getFullYear()}`;
+}
+
+function render(d) {
+  document.getElementById("faculty").textContent = d.faculty || "—";
+  document.getElementById("today").textContent = fmtToday();
+
+  const asg = (d.assignments || []).slice().sort((a, b) => (a.due || "9999").localeCompare(b.due || "9999"));
+  const today = todayStr();
+  const done = asg.filter(a => a.status === "ส่งแล้ว").length;
+
+  document.getElementById("stTotal").textContent = asg.length;
+  document.getElementById("stPending").textContent = asg.length - done;
+  document.getElementById("stDone").textContent = done;
+
+  if (!asg.length) {
+    document.getElementById("list").innerHTML = `
+      <div class="px empty">
+        <div class="big">NO ASSIGNMENT YET</div>
+        <div>ยังไม่มีงาน — สั่งเพิ่มผ่าน Discord ได้เลย</div>
+      </div>`;
+    return;
+  }
+
+  document.getElementById("list").innerHTML = asg.map(a => {
+    const overdue = a.due && a.due < today && a.status !== "ส่งแล้ว";
+    const soon = a.due && a.due >= today && a.due <= addDays(today, 3) && a.status !== "ส่งแล้ว";
+    const cls = overdue ? "overdue" : (soon ? "due-soon" : "");
+    return `
+    <div class="card px ${cls}">
+      <span class="code">${a.course_code || "—"}</span>
+      ${overdue ? `<span class="badge">OVERDUE</span>` : ""}
+      <h2>${a.title || "—"}</h2>
+      <div class="inst">อ. <b>${a.instructor || "—"}</b></div>
+      ${a.task ? `<div class="task">${a.task}</div>` : ""}
+      <div class="meta">
+        <div class="m"><div class="lbl">ช่องทางการส่ง</div><div class="val">${a.submission || "—"}</div></div>
+        <div class="m"><div class="lbl">กำหนดส่ง</div><div class="val">${fmtDate(a.due)}</div></div>
+        <div class="m"><div class="lbl">สถานะ</div><div class="val">${a.status || "—"}</div></div>
+      </div>
+      ${a.score != null ? `<div class="score">${a.score}pt</div>` : ""}
+    </div>`;
+  }).join("");
+}
+
+function addDays(iso, n) {
+  const [y, m, d] = iso.split("-").map(Number);
+  const t = new Date(y, m-1, d + n);
+  return t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+}
+
+load();
+</script>
+</body>
+</html>
