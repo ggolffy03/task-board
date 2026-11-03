@@ -379,7 +379,7 @@ function renderSchedule() {
         ${byDay[d].map(c => `
           <div class="sched-item">
             <span class="c">${c.code}</span>
-            <span class="n">${c.name}</span>
+            <span class="n">${c.name}${c.instructor ? `<small style="display:block;font-weight:400;color:var(--muted)">${c.instructor}</small>` : ""}</span>
             <span class="cr">${c.credits}</span>
           </div>`).join("")}
       </div>`).join("");
