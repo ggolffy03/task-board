@@ -1,7 +1,11 @@
 {
-  "updated": "2026-11-01",
+  "updated": "2026-11-03",
   "time_entries": [],
-  "categories": ["work", "life", "college"],
+  "categories": [
+    "work",
+    "life",
+    "college"
+  ],
   "projects": [
     {
       "id": "p-001",
@@ -9,7 +13,12 @@
       "category": "work",
       "description": "ระบบบริหารทรัพยากรบุคคล (Human Resource Management)",
       "color": "#58a6ff",
-      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "columns": [
+        "วางแผน",
+        "กำลังทำ",
+        "รอทดสอบ",
+        "เสร็จ"
+      ],
       "tasks": [
         {
           "id": "t-001",
@@ -19,7 +28,9 @@
           "progress": 0,
           "priority": "สูง",
           "due": null,
-          "tags": ["cloud"],
+          "tags": [
+            "cloud"
+          ],
           "subtasks": [],
           "note": "สมัคร Google Cloud แล้ว",
           "updated": "2026-11-01"
@@ -32,7 +43,9 @@
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["ui"],
+          "tags": [
+            "ui"
+          ],
           "subtasks": [],
           "note": "กำลังไล่แก้ UI",
           "updated": "2026-11-01"
@@ -47,13 +60,34 @@
           "due": null,
           "tags": [],
           "subtasks": [
-            { "title": "AppShell.vue (sidebar)", "done": true },
-            { "title": "/overview (Dashboard)", "done": true },
-            { "title": "COST OT", "done": true },
-            { "title": "COST OT บริษัท", "done": true },
-            { "title": "ชั่วโมงพนักงาน", "done": true },
-            { "title": "ชั่วโมงตามโครงการ", "done": true },
-            { "title": "/employees ตั้งค่าระบบ (8-tab rail)", "done": true }
+            {
+              "title": "AppShell.vue (sidebar)",
+              "done": true
+            },
+            {
+              "title": "/overview (Dashboard)",
+              "done": true
+            },
+            {
+              "title": "COST OT",
+              "done": true
+            },
+            {
+              "title": "COST OT บริษัท",
+              "done": true
+            },
+            {
+              "title": "ชั่วโมงพนักงาน",
+              "done": true
+            },
+            {
+              "title": "ชั่วโมงตามโครงการ",
+              "done": true
+            },
+            {
+              "title": "/employees ตั้งค่าระบบ (8-tab rail)",
+              "done": true
+            }
           ],
           "note": "ขึ้นจริงแล้ว; Recheck UI ผ่านทุกหน้า",
           "updated": "2026-11-01"
@@ -66,16 +100,42 @@
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["ui"],
+          "tags": [
+            "ui"
+          ],
           "subtasks": [
-            { "title": "แผนก (DepartmentsTab)", "done": false },
-            { "title": "โปรเจกต์", "done": false },
-            { "title": "ลูกค้า", "done": false },
-            { "title": "ไซต์", "done": false },
-            { "title": "วันหยุด", "done": false },
-            { "title": "ประเภทลา", "done": false },
-            { "title": "งวดเดือน (PeriodsTab)", "done": false },
-            { "title": "ประกาศ", "done": false }
+            {
+              "title": "แผนก (DepartmentsTab)",
+              "done": false
+            },
+            {
+              "title": "โปรเจกต์",
+              "done": false
+            },
+            {
+              "title": "ลูกค้า",
+              "done": false
+            },
+            {
+              "title": "ไซต์",
+              "done": false
+            },
+            {
+              "title": "วันหยุด",
+              "done": false
+            },
+            {
+              "title": "ประเภทลา",
+              "done": false
+            },
+            {
+              "title": "งวดเดือน (PeriodsTab)",
+              "done": false
+            },
+            {
+              "title": "ประกาศ",
+              "done": false
+            }
           ],
           "note": "ฟอร์มย่อยยังเป็น inline form เดิม",
           "updated": "2026-11-01"
@@ -114,13 +174,30 @@
           "progress": 0,
           "priority": "ต่ำ",
           "due": null,
-          "tags": ["liff"],
+          "tags": [
+            "liff"
+          ],
           "subtasks": [
-            { "title": "check-in", "done": false },
-            { "title": "menu", "done": false },
-            { "title": "history", "done": false },
-            { "title": "daily-input", "done": false },
-            { "title": "requests", "done": false }
+            {
+              "title": "check-in",
+              "done": false
+            },
+            {
+              "title": "menu",
+              "done": false
+            },
+            {
+              "title": "history",
+              "done": false
+            },
+            {
+              "title": "daily-input",
+              "done": false
+            },
+            {
+              "title": "requests",
+              "done": false
+            }
           ],
           "note": "Phase 4 — ยังไม่เริ่ม",
           "updated": "2026-11-01"
@@ -133,16 +210,42 @@
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["ui"],
+          "tags": [
+            "ui"
+          ],
           "subtasks": [
-            { "title": "ตั้งค่าทั่วไป", "done": false },
-            { "title": "ประกาศ", "done": false },
-            { "title": "ตั้งค่าพนักงาน", "done": false },
-            { "title": "ตั้งค่าวันหยุดประจำปี", "done": false },
-            { "title": "ตั้งค่าไซต์งาน", "done": false },
-            { "title": "ตั้งค่าแผนก", "done": false },
-            { "title": "ตั้งค่างวดเดือน", "done": false },
-            { "title": "ตั้งค่าโปรเจกต์และลูกค้า", "done": false }
+            {
+              "title": "ตั้งค่าทั่วไป",
+              "done": false
+            },
+            {
+              "title": "ประกาศ",
+              "done": false
+            },
+            {
+              "title": "ตั้งค่าพนักงาน",
+              "done": false
+            },
+            {
+              "title": "ตั้งค่าวันหยุดประจำปี",
+              "done": false
+            },
+            {
+              "title": "ตั้งค่าไซต์งาน",
+              "done": false
+            },
+            {
+              "title": "ตั้งค่าแผนก",
+              "done": false
+            },
+            {
+              "title": "ตั้งค่างวดเดือน",
+              "done": false
+            },
+            {
+              "title": "ตั้งค่าโปรเจกต์และลูกค้า",
+              "done": false
+            }
           ],
           "note": "หน้าไม่ตรงตาม ref",
           "updated": "2026-11-01"
@@ -155,15 +258,38 @@
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["report"],
+          "tags": [
+            "report"
+          ],
           "subtasks": [
-            { "title": "เปลี่ยนชื่อ — COST OT By Employee", "done": false },
-            { "title": "เปลี่ยนชื่อ — COST OT By Company", "done": false },
-            { "title": "Render PDF — COST OT By Employee", "done": false },
-            { "title": "Render PDF — COST OT By Company", "done": false },
-            { "title": "Render PDF — ชั่วโมงพนักงาน", "done": false },
-            { "title": "Render PDF — ชั่วโมงตามโครงการ", "done": false },
-            { "title": "ทดสอบระบบ — ทุกหน้า", "done": false }
+            {
+              "title": "เปลี่ยนชื่อ — COST OT By Employee",
+              "done": false
+            },
+            {
+              "title": "เปลี่ยนชื่อ — COST OT By Company",
+              "done": false
+            },
+            {
+              "title": "Render PDF — COST OT By Employee",
+              "done": false
+            },
+            {
+              "title": "Render PDF — COST OT By Company",
+              "done": false
+            },
+            {
+              "title": "Render PDF — ชั่วโมงพนักงาน",
+              "done": false
+            },
+            {
+              "title": "Render PDF — ชั่วโมงตามโครงการ",
+              "done": false
+            },
+            {
+              "title": "ทดสอบระบบ — ทุกหน้า",
+              "done": false
+            }
           ],
           "note": "UI Recheck แล้วตรงทุกหน้า; ยังไม่ได้ทดสอบระบบ",
           "updated": "2026-11-01"
@@ -176,16 +302,61 @@
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["ui"],
+          "tags": [
+            "ui"
+          ],
           "subtasks": [
-            { "title": "เพิ่ม Badge แสดงผู้อนุมัติ + เวลา", "done": false },
-            { "title": "เปลี่ยนการแสดงผลรายละเอียดเป็น pop up", "done": false },
-            { "title": "UI ตรงตามที่ Vibe ยังไม่เช็ค", "done": false },
-            { "title": "การทำงานของ Combo Box ถูกต้อง", "done": true },
-            { "title": "การแสดงผลของ Pop Up ถูกต้อง", "done": true }
+            {
+              "title": "เพิ่ม Badge แสดงผู้อนุมัติ + เวลา",
+              "done": false
+            },
+            {
+              "title": "เปลี่ยนการแสดงผลรายละเอียดเป็น pop up",
+              "done": false
+            },
+            {
+              "title": "UI ตรงตามที่ Vibe ยังไม่เช็ค",
+              "done": false
+            },
+            {
+              "title": "การทำงานของ Combo Box ถูกต้อง",
+              "done": true
+            },
+            {
+              "title": "การแสดงผลของ Pop Up ถูกต้อง",
+              "done": true
+            }
           ],
           "note": "",
           "updated": "2026-11-01"
+        },
+        {
+          "id": "t-014",
+          "title": "[Testing] ทดสอบหลัง Refactor UI ทั้งหมด",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "สูง",
+          "due": null,
+          "tags": [
+            "testing"
+          ],
+          "subtasks": [
+            {
+              "title": "ส่วนที่ 1 — LINE LIFF E2E (0/36)",
+              "done": false
+            },
+            {
+              "title": "ส่วนที่ 2 — เทสต์ทั้งโปรเจ็ค (0/19)",
+              "done": false
+            },
+            {
+              "title": "ส่วนที่ 3 — ความสมบูรณ์ของ UI (0/65)",
+              "done": false
+            }
+          ],
+          "note": "120 checklist แบ่ง 3 ส่วน (36+19+65); ยังไม่มีรายละเอียดรายข้อ",
+          "updated": "2026-11-03"
         }
       ]
     },
@@ -195,7 +366,12 @@
       "category": "work",
       "description": "ระบบบริหารการผลิต (Manufacturing Execution System)",
       "color": "#3fb950",
-      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "columns": [
+        "วางแผน",
+        "กำลังทำ",
+        "รอทดสอบ",
+        "เสร็จ"
+      ],
       "tasks": []
     },
     {
@@ -204,7 +380,12 @@
       "category": "work",
       "description": "",
       "color": "#e3b341",
-      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "columns": [
+        "วางแผน",
+        "กำลังทำ",
+        "รอทดสอบ",
+        "เสร็จ"
+      ],
       "tasks": [
         {
           "id": "t-008",
@@ -227,7 +408,12 @@
       "category": "life",
       "description": "สิ่งที่ต้องทำในชีวิตประจำวัน",
       "color": "#3fb950",
-      "columns": ["วางแผน", "กำลังทำ", "รอทดสอบ", "เสร็จ"],
+      "columns": [
+        "วางแผน",
+        "กำลังทำ",
+        "รอทดสอบ",
+        "เสร็จ"
+      ],
       "tasks": [
         {
           "id": "t-012",
@@ -237,11 +423,23 @@
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["windows", "setup"],
+          "tags": [
+            "windows",
+            "setup"
+          ],
           "subtasks": [
-            { "title": "Microsoft PowerToys (FancyZones)", "done": false },
-            { "title": "DisplayFusion", "done": false },
-            { "title": "Windhawk", "done": false }
+            {
+              "title": "Microsoft PowerToys (FancyZones)",
+              "done": false
+            },
+            {
+              "title": "DisplayFusion",
+              "done": false
+            },
+            {
+              "title": "Windhawk",
+              "done": false
+            }
           ],
           "note": "ตัวเลือกเครื่องมือ (เลือกใช้ตัวใดตัวหนึ่ง)",
           "updated": "2026-11-01"
@@ -254,7 +452,10 @@
           "progress": 0,
           "priority": "กลาง",
           "due": null,
-          "tags": ["github", "format"],
+          "tags": [
+            "github",
+            "format"
+          ],
           "subtasks": [],
           "note": "",
           "updated": "2026-11-01"
