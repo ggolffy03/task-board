@@ -1,5 +1,21 @@
 {
   "updated": "2026-11-03",
   "faculty": "โลจิสติกส์และ Supply Chain",
-  "assignments": []
+  "assignments": [
+    {
+      "id": "a-001",
+      "course_code": "LSM 33367",
+      "instructor": "",
+      "title": "สอบกลางภาค",
+      "task": "",
+      "submission": "",
+      "due": "2026-11-10",
+      "score": null,
+      "status": "ยังไม่ส่ง",
+      "priority": "q1"
+    }
+  ],
+  "log": [
+    { "date": "2026-11-03", "course_code": "LSM 33367", "title": "สอบกลางภาค", "due": "2026-11-10" }
+  ]
 }

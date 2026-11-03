@@ -59,6 +59,14 @@
   .hud .today .lbl { font-family: "Silkscreen"; font-size: 9px; color: var(--muted); letter-spacing: 1px; }
   .hud .today .d { font-family: "Press Start 2P"; font-size: 12px; color: var(--primary); margin-top: 4px; }
 
+  /* Faculty card (button) */
+  #facultyCard { cursor: pointer; }
+  #facultyCard:active { transform: translate(2px,2px); box-shadow: 4px 4px 0 rgba(35,31,32,.85); }
+  #facultyCard .hint {
+    display: block; font-family: "Silkscreen"; font-size: 8px; color: var(--muted);
+    letter-spacing: 1px; margin-top: 8px;
+  }
+
   /* ---------- Summary bar ---------- */
   .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
   .stat {
@@ -195,13 +203,21 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="hud px">
+  <button class="hud px" id="facultyCard" style="width:100%;text-align:left;font-family:inherit;">
     <div class="logo">🎓 CLASS LOG</div>
     <div class="sub">คณะ <b id="faculty">—</b></div>
     <div class="today">
       <div class="lbl">TODAY</div>
       <div class="d" id="today">—</div>
     </div>
+    <span class="hint">TAP TO VIEW ADD LOG</span>
+  </button>
+
+  <!-- Priority Matrix -->
+  <div class="matrix px" style="margin-top:26px">
+    <div class="mtitle">▦ PRIORITY MATRIX // ความสำคัญของงาน</div>
+    <div class="mx-grid" id="mxGrid"></div>
+    <div class="mx-unassigned" id="mxUnassigned" style="display:none"></div>
   </div>
 
   <div class="stats">
@@ -221,14 +237,7 @@
     <div class="cal-grid" id="calGrid"></div>
   </div>
 
-  <!-- Priority Matrix -->
   <div class="list" id="list"></div>
-
-  <div class="matrix px">
-    <div class="mtitle">▦ PRIORITY MATRIX // ความสำคัญของงาน</div>
-    <div class="mx-grid" id="mxGrid"></div>
-    <div class="mx-unassigned" id="mxUnassigned" style="display:none"></div>
-  </div>
 
   <footer>COLLEGE ASSIGNMENT LOG — DATA FROM <code>college.json</code> — UPDATE VIA DISCORD</footer>
 </div>
@@ -240,6 +249,16 @@
       <button class="close" id="modalClose">✕</button>
     </div>
     <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="overlay hidden" id="logOverlay">
+  <div class="modal px">
+    <div class="mhead">
+      <h2>📜 ADD LOG // ประวัติการเพิ่มงาน</h2>
+      <button class="close" id="logClose">✕</button>
+    </div>
+    <div id="logBody"></div>
   </div>
 </div>
 
@@ -477,6 +496,24 @@ document.getElementById("modalClose").onclick = () => document.getElementById("o
 document.getElementById("overlay").onclick = e => {
   if (e.target === e.currentTarget) e.currentTarget.classList.add("hidden");
 };
+
+// Faculty card button -> add log
+document.getElementById("facultyCard").onclick = () => openLogModal();
+document.getElementById("logClose").onclick = () => document.getElementById("logOverlay").classList.add("hidden");
+document.getElementById("logOverlay").onclick = e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.add("hidden");
+};
+
+function openLogModal() {
+  const log = DATA.log || [];
+  document.getElementById("logBody").innerHTML = log.length
+    ? log.map((l, i) => `
+      <div class="mini">
+        <div class="t">• ${fmtDate(l.date)} — ${l.course_code || "—"} <span style="color:var(--muted);font-weight:400">${l.title || "—"}${l.due ? ` · ส่ง ${fmtDate(l.due)}` : ""}</span></div>
+      </div>`).join("")
+    : `<div class="empty" style="padding:24px"><div class="big">NO LOG</div><div>ยังไม่มีประวัติการเพิ่มงาน</div></div>`;
+  document.getElementById("logOverlay").classList.remove("hidden");
+}
 
 load();
 </script>
