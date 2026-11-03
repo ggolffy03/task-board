@@ -147,6 +147,24 @@
   .modal .mini .s { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
   footer { margin-top: 28px; text-align: center; font-family: "Silkscreen"; font-size: 10px; color: var(--muted); }
+
+  /* ---------- Priority Matrix ---------- */
+  .matrix { padding: 18px 20px; margin-bottom: 26px; }
+  .matrix .mtitle { font-family: "Silkscreen"; font-size: 14px; letter-spacing: 1px; margin-bottom: 16px; }
+  .mx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px) { .mx-grid { grid-template-columns: 1fr; } }
+  .mx-quad { border: 3px solid var(--ink); padding: 12px 14px; min-height: 96px; box-shadow: 4px 4px 0 rgba(35,31,32,.6); }
+  .mx-quad .qh { font-family: "Silkscreen"; font-size: 10px; letter-spacing: 1px; padding: 4px 9px; display: inline-block; border: 2px solid var(--ink); color: #fff; margin-bottom: 10px; }
+  .mx-quad .qsub { font-size: 10px; color: var(--muted); margin-left: 6px; font-weight: 600; }
+  .mx-q1 { background: #ffe3dc; } .mx-q1 .qh { background: #EE4E1D; }
+  .mx-q2 { background: #fff6e0; } .mx-q2 .qh { background: #E0A800; }
+  .mx-q3 { background: #ffe9d6; } .mx-q3 .qh { background: #CF9068; }
+  .mx-q4 { background: #f2f2f2; } .mx-q4 .qh { background: #8a8a8a; }
+  .mx-item { font-size: 12px; padding: 6px 9px; margin-bottom: 6px; background: var(--card); border: 2px solid var(--ink); font-weight: 600; word-break: break-word; }
+  .mx-item .c { color: var(--muted); font-weight: 400; font-size: 11px; }
+  .mx-empty { font-size: 11px; color: var(--muted); }
+  .mx-unassigned { margin-top: 14px; border: 2px dashed var(--ink); padding: 12px 14px; }
+  .mx-unassigned .lbl { font-family: "Silkscreen"; font-size: 9px; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -175,6 +193,13 @@
       <button class="nav today-btn" id="calToday">วันนี้</button>
     </div>
     <div class="cal-grid" id="calGrid"></div>
+  </div>
+
+  <!-- Priority Matrix -->
+  <div class="matrix px">
+    <div class="mtitle">▦ PRIORITY MATRIX // ความสำคัญของงาน</div>
+    <div class="mx-grid" id="mxGrid"></div>
+    <div class="mx-unassigned" id="mxUnassigned" style="display:none"></div>
   </div>
 
   <div class="list" id="list"></div>
@@ -250,6 +275,7 @@ function render() {
   document.getElementById("stDone").textContent = done;
 
   renderCalendar();
+  renderMatrix();
   renderList();
 }
 
@@ -312,6 +338,49 @@ function renderCalendar() {
   document.querySelectorAll(".cal-cell[data-date]").forEach(cell => {
     cell.addEventListener("click", () => openDayModal(cell.dataset.date));
   });
+}
+
+function renderMatrix() {
+  const asg = DATA.assignments || [];
+  const today = todayStr();
+
+  // priority: "q1"(ด่วน+สำคัญ) | "q2"(สำคัญ ไม่ด่วน) | "q3"(ด่วน ไม่สำคัญ) | "q4"(ไม่ด่วน ไม่สำคัญ)
+  const quads = [
+    { key: "q1", cls: "mx-q1", label: "Q1 ด่วน + สำคัญ", sub: "ทำก่อน" },
+    { key: "q2", cls: "mx-q2", label: "Q2 สำคัญ ไม่ด่วน", sub: "วางแผน" },
+    { key: "q3", cls: "mx-q3", label: "Q3 ด่วน ไม่สำคัญ", sub: "มอบหมาย" },
+    { key: "q4", cls: "mx-q4", label: "Q4 ไม่ด่วน ไม่สำคัญ", sub: "ทีหลัง" }
+  ];
+
+  const buckets = { q1: [], q2: [], q3: [], q4: [], unassigned: [] };
+  for (const a of asg) {
+    const p = (a.priority || "").toLowerCase();
+    if (p === "q1" || p === "q2" || p === "q3" || p === "q4") buckets[p].push(a);
+    else buckets.unassigned.push(a);
+  }
+
+  const itemHtml = a => `
+    <div class="mx-item">
+      ${a.title}
+      <span class="c">· ${a.course_code || "—"} · ${fmtDate(a.due)}</span>
+    </div>`;
+
+  document.getElementById("mxGrid").innerHTML = quads.map(q => `
+    <div class="mx-quad ${q.cls}">
+      <span class="qh">${q.label}</span><span class="qsub">${q.sub}</span>
+      ${buckets[q.key].length
+        ? buckets[q.key].map(itemHtml).join("")
+        : `<div class="mx-empty">— ไม่มีงาน —</div>`}
+    </div>`).join("");
+
+  const un = document.getElementById("mxUnassigned");
+  if (buckets.unassigned.length) {
+    un.style.display = "block";
+    un.innerHTML = `<div class="lbl">ยังไม่จัดลำดับ</div>` +
+      buckets.unassigned.map(itemHtml).join("");
+  } else {
+    un.style.display = "none";
+  }
 }
 
 function openDayModal(iso) {
