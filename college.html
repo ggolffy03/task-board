@@ -49,13 +49,9 @@
   }
   .hud .sub { font-size: 14px; font-weight: 600; color: var(--muted); }
   .hud .sub b { color: var(--text); }
-  .hud .today {
-    margin-left: auto; text-align: right;
-  }
+  .hud .today { margin-left: auto; text-align: right; }
   .hud .today .lbl { font-family: "Silkscreen"; font-size: 9px; color: var(--muted); letter-spacing: 1px; }
-  .hud .today .d {
-    font-family: "Press Start 2P"; font-size: 12px; color: var(--primary); margin-top: 4px;
-  }
+  .hud .today .d { font-family: "Press Start 2P"; font-size: 12px; color: var(--primary); margin-top: 4px; }
 
   /* ---------- Summary bar ---------- */
   .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
@@ -67,8 +63,45 @@
   .stat .n.orange { color: var(--primary); }
   .stat .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 600; }
 
-  /* ---------- Assignment cards ---------- */
+  /* ---------- Calendar ---------- */
+  .cal { padding: 18px 20px; margin-bottom: 26px; }
+  .cal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .cal-head .title { font-family: "Silkscreen"; font-size: 15px; letter-spacing: 1px; flex: 1; }
+  .cal-head .nav {
+    width: 38px; height: 38px; background: var(--card);
+    border: 3px solid var(--ink); box-shadow: 3px 3px 0 rgba(35,31,32,.8);
+    font-size: 18px; font-weight: 700; cursor: pointer; font-family: inherit; line-height: 1;
+    color: var(--text);
+  }
+  .cal-head .nav:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 rgba(35,31,32,.8); }
+  .cal-head .nav.today-btn { width: auto; padding: 0 14px; font-family: "Silkscreen"; font-size: 11px; background: var(--primary); color: #fff; }
+
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .cal-dow { text-align: center; font-family: "Silkscreen"; font-size: 9px; color: var(--muted); letter-spacing: 1px; padding: 4px 0; }
+  .cal-cell {
+    position: relative; min-height: 76px; padding: 6px; text-align: left;
+    background: var(--card); border: 2px solid var(--ink); cursor: pointer;
+    box-shadow: 3px 3px 0 rgba(35,31,32,.6); font-family: inherit;
+    transition: transform .05s;
+  }
+  .cal-cell:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 rgba(35,31,32,.6); }
+  .cal-cell .day { font-family: "Silkscreen"; font-size: 12px; }
+  .cal-cell.empty { background: #f7e6d8; border-style: dashed; cursor: default; box-shadow: none; }
+  .cal-cell.other { opacity: .35; }
+  .cal-cell.today { border-color: var(--primary); border-width: 3px; box-shadow: 3px 3px 0 rgba(238,78,29,.7); }
+  .cal-cell.today .day { color: var(--primary); }
+  .cal-cell .dots { display: flex; flex-direction: column; gap: 3px; margin-top: 4px; }
+  .cal-cell .dot {
+    display: block; font-size: 9px; line-height: 1.25; padding: 1px 5px;
+    background: var(--secondary); color: #fff; border: 1px solid var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cal-cell .dot.overdue { background: var(--primary); }
+  .cal-cell .more { font-size: 9px; color: var(--muted); margin-top: 2px; font-weight: 700; }
+
+  /* ---------- Assignment cards (list below calendar) ---------- */
   .list { display: flex; flex-direction: column; gap: 18px; }
+  .section-title { font-family: "Silkscreen"; font-size: 12px; letter-spacing: 1px; margin: 0 0 14px; }
   .card { position: relative; padding: 18px 20px; }
   .card .code {
     display: inline-block; font-family: "Silkscreen"; font-size: 11px;
@@ -79,18 +112,12 @@
   .card h2 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
   .card .inst { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
   .card .inst b { color: var(--text); }
-  .card .task {
-    background: #fff8f3; border: 2px dashed var(--secondary);
-    padding: 10px 12px; font-size: 13px; line-height: 1.55; margin-bottom: 14px;
-  }
+  .card .task { background: #fff8f3; border: 2px dashed var(--secondary); padding: 10px 12px; font-size: 13px; line-height: 1.55; margin-bottom: 14px; }
   .card .meta { display: flex; gap: 18px; flex-wrap: wrap; }
   .card .meta .m { min-width: 120px; }
   .card .meta .m .lbl { font-family: "Silkscreen"; font-size: 8px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
   .card .meta .m .val { font-size: 13px; font-weight: 600; margin-top: 2px; }
-  .card .score {
-    position: absolute; top: 16px; right: 18px;
-    font-family: "Press Start 2P"; font-size: 15px; color: var(--primary);
-  }
+  .card .score { position: absolute; top: 16px; right: 18px; font-family: "Press Start 2P"; font-size: 15px; color: var(--primary); }
   .card.due-soon { border-color: var(--primary); }
   .card.overdue { border-color: var(--primary); background: #FFF5F0; }
   .card.overdue .badge {
@@ -101,6 +128,23 @@
 
   .empty { padding: 40px 20px; text-align: center; color: var(--muted); }
   .empty .big { font-family: "Press Start 2P"; font-size: 16px; margin-bottom: 8px; color: var(--text); }
+
+  /* ---------- Day detail modal ---------- */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(35,31,32,.55); z-index: 50;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .overlay.hidden { display: none; }
+  .modal { width: 100%; max-width: 560px; max-height: 80vh; overflow-y: auto; padding: 20px; }
+  .modal .mhead { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .modal .mhead h2 { font-family: "Silkscreen"; font-size: 14px; letter-spacing: 1px; flex: 1; }
+  .modal .close {
+    width: 32px; height: 32px; border: 2px solid var(--ink); background: var(--primary); color: #fff;
+    font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 2px 2px 0 rgba(35,31,32,.7);
+  }
+  .modal .mini { padding: 12px 14px; margin-bottom: 10px; background: #fff8f3; border: 2px solid var(--ink); }
+  .modal .mini .t { font-weight: 700; font-size: 14px; }
+  .modal .mini .s { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
   footer { margin-top: 28px; text-align: center; font-family: "Silkscreen"; font-size: 10px; color: var(--muted); }
 </style>
@@ -122,19 +166,49 @@
     <div class="stat"><div class="n" id="stDone">0</div><div class="lbl">ส่งแล้ว</div></div>
   </div>
 
+  <!-- Calendar -->
+  <div class="cal px">
+    <div class="cal-head">
+      <button class="nav" id="calPrev">‹</button>
+      <div class="title" id="calTitle">—</div>
+      <button class="nav" id="calNext">›</button>
+      <button class="nav today-btn" id="calToday">วันนี้</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+
   <div class="list" id="list"></div>
 
   <footer>COLLEGE ASSIGNMENT LOG — DATA FROM <code>college.json</code> — UPDATE VIA DISCORD</footer>
 </div>
 
+<div class="overlay hidden" id="overlay">
+  <div class="modal px">
+    <div class="mhead">
+      <h2 id="modalTitle">—</h2>
+      <button class="close" id="modalClose">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
 <script>
+const TH_MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+const TH_DAYS = ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"];
+const TH_DAYS_FULL = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+
+let DATA = null;
+let calYear, calMonth;
+
 async function load() {
   const res = await fetch("college.json", { cache: "no-store" });
-  const d = await res.json();
-  render(d);
+  DATA = await res.json();
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  render();
 }
 
-const TH_MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
 function todayStr() {
   const t = new Date();
   return t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
@@ -148,12 +222,26 @@ function fmtToday() {
   const t = new Date();
   return `${t.getDate()} ${TH_MONTHS[t.getMonth()]} ${t.getFullYear()}`;
 }
+function addDays(iso, n) {
+  const [y, m, d] = iso.split("-").map(Number);
+  const t = new Date(y, m-1, d + n);
+  return t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+}
 
-function render(d) {
-  document.getElementById("faculty").textContent = d.faculty || "—";
+function assignmentsByDate() {
+  const map = {};
+  for (const a of (DATA.assignments || [])) {
+    if (!a.due) continue;
+    (map[a.due] = map[a.due] || []).push(a);
+  }
+  return map;
+}
+
+function render() {
+  document.getElementById("faculty").textContent = DATA.faculty || "—";
   document.getElementById("today").textContent = fmtToday();
 
-  const asg = (d.assignments || []).slice().sort((a, b) => (a.due || "9999").localeCompare(b.due || "9999"));
+  const asg = DATA.assignments || [];
   const today = todayStr();
   const done = asg.filter(a => a.status === "ส่งแล้ว").length;
 
@@ -161,8 +249,99 @@ function render(d) {
   document.getElementById("stPending").textContent = asg.length - done;
   document.getElementById("stDone").textContent = done;
 
+  renderCalendar();
+  renderList();
+}
+
+function renderCalendar() {
+  document.getElementById("calTitle").textContent = `${TH_MONTHS[calMonth]} ${calYear}`;
+
+  const byDate = assignmentsByDate();
+  const today = todayStr();
+
+  // day-of-week header
+  let html = TH_DAYS.map(d => `<div class="cal-dow">${d}</div>`).join("");
+
+  const first = new Date(calYear, calMonth, 1);
+  const startDow = first.getDay();            // 0 = Sunday
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const daysInPrev = new Date(calYear, calMonth, 0).getDate();
+
+  const totalCells = Math.ceil((startDow + daysInMonth) / 7) * 7;
+
+  for (let i = 0; i < totalCells; i++) {
+    const dayNum = i - startDow + 1;
+    let iso = null, cls = "", label;
+
+    if (dayNum < 1) {
+      // previous month
+      const d = daysInPrev + dayNum;
+      const pm = new Date(calYear, calMonth - 1, d);
+      iso = pm.getFullYear() + "-" + String(pm.getMonth()+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
+      label = d;
+      cls = "other";
+    } else if (dayNum > daysInMonth) {
+      const d = dayNum - daysInMonth;
+      const nm = new Date(calYear, calMonth + 1, d);
+      iso = nm.getFullYear() + "-" + String(nm.getMonth()+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
+      label = d;
+      cls = "other";
+    } else {
+      iso = calYear + "-" + String(calMonth+1).padStart(2,"0") + "-" + String(dayNum).padStart(2,"0");
+      label = dayNum;
+    }
+
+    if (iso === today) cls += " today";
+
+    const list = byDate[iso] || [];
+    let dots = "";
+    if (list.length) {
+      const shown = list.slice(0, 2).map(a =>
+        `<span class="dot ${a.due < today && a.status !== "ส่งแล้ว" ? "overdue" : ""}">${a.title}</span>`).join("");
+      const more = list.length > 2 ? `<div class="more">+${list.length - 2}</div>` : "";
+      dots = `<div class="dots">${shown}${more}</div>`;
+    }
+
+    html += `<button class="cal-cell ${cls}" data-date="${iso}">
+      <span class="day">${label}</span>${dots}
+    </button>`;
+  }
+
+  document.getElementById("calGrid").innerHTML = html;
+
+  document.querySelectorAll(".cal-cell[data-date]").forEach(cell => {
+    cell.addEventListener("click", () => openDayModal(cell.dataset.date));
+  });
+}
+
+function openDayModal(iso) {
+  const byDate = assignmentsByDate();
+  const list = byDate[iso] || [];
+  const today = todayStr();
+  const d = new Date(iso + "T00:00:00");
+
+  document.getElementById("modalTitle").textContent =
+    `${TH_DAYS_FULL[d.getDay()]} ${fmtDate(iso)}`;
+
+  document.getElementById("modalBody").innerHTML = list.length
+    ? list.map(a => `
+      <div class="mini">
+        <div class="t">${a.title} <span style="font-weight:400;color:var(--muted)">[${a.course_code || "—"}]</span></div>
+        <div class="s">อ. ${a.instructor || "—"} · ${a.submission || "—"} · ${a.status || "—"}${a.score != null ? ` · ${a.score} pt` : ""}</div>
+        ${a.task ? `<div class="s" style="margin-top:4px">${a.task}</div>` : ""}
+      </div>`).join("")
+    : `<div class="empty" style="padding:24px"><div class="big">NO WORK</div><div>ไม่มีงานต้องส่งวันนี้</div></div>`;
+
+  document.getElementById("overlay").classList.remove("hidden");
+}
+
+function renderList() {
+  const asg = (DATA.assignments || []).slice().sort((a, b) => (a.due || "9999").localeCompare(b.due || "9999"));
+  const today = todayStr();
+
   if (!asg.length) {
     document.getElementById("list").innerHTML = `
+      <div class="section-title">// งานทั้งหมด</div>
       <div class="px empty">
         <div class="big">NO ASSIGNMENT YET</div>
         <div>ยังไม่มีงาน — สั่งเพิ่มผ่าน Discord ได้เลย</div>
@@ -170,32 +349,39 @@ function render(d) {
     return;
   }
 
-  document.getElementById("list").innerHTML = asg.map(a => {
-    const overdue = a.due && a.due < today && a.status !== "ส่งแล้ว";
-    const soon = a.due && a.due >= today && a.due <= addDays(today, 3) && a.status !== "ส่งแล้ว";
-    const cls = overdue ? "overdue" : (soon ? "due-soon" : "");
-    return `
-    <div class="card px ${cls}">
-      <span class="code">${a.course_code || "—"}</span>
-      ${overdue ? `<span class="badge">OVERDUE</span>` : ""}
-      <h2>${a.title || "—"}</h2>
-      <div class="inst">อ. <b>${a.instructor || "—"}</b></div>
-      ${a.task ? `<div class="task">${a.task}</div>` : ""}
-      <div class="meta">
-        <div class="m"><div class="lbl">ช่องทางการส่ง</div><div class="val">${a.submission || "—"}</div></div>
-        <div class="m"><div class="lbl">กำหนดส่ง</div><div class="val">${fmtDate(a.due)}</div></div>
-        <div class="m"><div class="lbl">สถานะ</div><div class="val">${a.status || "—"}</div></div>
-      </div>
-      ${a.score != null ? `<div class="score">${a.score}pt</div>` : ""}
-    </div>`;
-  }).join("");
+  document.getElementById("list").innerHTML = `
+    <div class="section-title">// งานทั้งหมด</div>
+    ${asg.map(a => {
+      const overdue = a.due && a.due < today && a.status !== "ส่งแล้ว";
+      const soon = a.due && a.due >= today && a.due <= addDays(today, 3) && a.status !== "ส่งแล้ว";
+      const cls = overdue ? "overdue" : (soon ? "due-soon" : "");
+      return `
+      <div class="card px ${cls}">
+        <span class="code">${a.course_code || "—"}</span>
+        ${overdue ? `<span class="badge">OVERDUE</span>` : ""}
+        <h2>${a.title || "—"}</h2>
+        <div class="inst">อ. <b>${a.instructor || "—"}</b></div>
+        ${a.task ? `<div class="task">${a.task}</div>` : ""}
+        <div class="meta">
+          <div class="m"><div class="lbl">ช่องทางการส่ง</div><div class="val">${a.submission || "—"}</div></div>
+          <div class="m"><div class="lbl">กำหนดส่ง</div><div class="val">${fmtDate(a.due)}</div></div>
+          <div class="m"><div class="lbl">สถานะ</div><div class="val">${a.status || "—"}</div></div>
+        </div>
+        ${a.score != null ? `<div class="score">${a.score}pt</div>` : ""}
+      </div>`;
+    }).join("")}`;
 }
 
-function addDays(iso, n) {
-  const [y, m, d] = iso.split("-").map(Number);
-  const t = new Date(y, m-1, d + n);
-  return t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
-}
+// Calendar nav
+document.getElementById("calPrev").onclick = () => { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); };
+document.getElementById("calNext").onclick = () => { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); };
+document.getElementById("calToday").onclick = () => {
+  const now = new Date(); calYear = now.getFullYear(); calMonth = now.getMonth(); renderCalendar();
+};
+document.getElementById("modalClose").onclick = () => document.getElementById("overlay").classList.add("hidden");
+document.getElementById("overlay").onclick = e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.add("hidden");
+};
 
 load();
 </script>
