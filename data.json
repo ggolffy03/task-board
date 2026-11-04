@@ -45,6 +45,68 @@
           "subtasks": [],
           "note": "",
           "updated": "2026-11-03"
+        },
+        {
+          "id": "t-017",
+          "title": "[LIFF] Rebuild UI Mockup (Flow ใหม่)",
+          "column": "กำลังทำ",
+          "description": "ปรับปรุง UI หน้าจอมือถือ 4 หน้าตาม Flow การทำงานใหม่",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [
+            "liff",
+            "ui"
+          ],
+          "subtasks": [
+            {
+              "title": "เช็คอิน",
+              "done": false
+            },
+            {
+              "title": "วางแผนงาน",
+              "done": false
+            },
+            {
+              "title": "บันทึกงานจริง + OT",
+              "done": false
+            },
+            {
+              "title": "สรุปงวด",
+              "done": false
+            }
+          ],
+          "note": "",
+          "updated": "2026-11-03"
+        },
+        {
+          "id": "t-018",
+          "title": "[Approvals] Rebuild UI Web คิวอนุมัติ & จัดการสิทธิ์",
+          "column": "กำลังทำ",
+          "description": "พัฒนา UI หน้าเว็บ 3 หน้าตาม Flow คิวอนุมัติและตั้งค่า",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [
+            "ui",
+            "approvals"
+          ],
+          "subtasks": [
+            {
+              "title": "คิวอนุมัติขั้น 1 (หัวหน้างาน)",
+              "done": false
+            },
+            {
+              "title": "คิวอนุมัติขั้น 2 (HR, ตัดสินสุดท้าย)",
+              "done": false
+            },
+            {
+              "title": "ตั้งค่าหัวหน้างาน",
+              "done": false
+            }
+          ],
+          "note": "",
+          "updated": "2026-11-03"
         }
       ]
     },
