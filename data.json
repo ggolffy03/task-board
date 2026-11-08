@@ -19,7 +19,83 @@
         "รอทดสอบ",
         "เสร็จ"
       ],
-      "tasks": []
+      "tasks": [
+        {
+          "id": "t-019",
+          "title": "[UI] ทำ v8.11 ให้เสร็จสมบูรณ์",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [
+            "ui"
+          ],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-03"
+        },
+        {
+          "id": "t-020",
+          "title": "[Deck] ทำ Pitch Deck ของแอป",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [
+            "deck"
+          ],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-03"
+        },
+        {
+          "id": "t-021",
+          "title": "[Docs] ทำคู่มือการใช้งานพนักงาน",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [
+            "docs"
+          ],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-03"
+        },
+        {
+          "id": "t-022",
+          "title": "[Deploy] Host ขึ้น Cloud",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "สูง",
+          "due": null,
+          "tags": [
+            "cloud"
+          ],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-03"
+        },
+        {
+          "id": "t-023",
+          "title": "[Board] สร้าง Board อัปเดตงาน",
+          "column": "วางแผน",
+          "description": "",
+          "progress": 0,
+          "priority": "กลาง",
+          "due": null,
+          "tags": [
+            "board"
+          ],
+          "subtasks": [],
+          "note": "",
+          "updated": "2026-11-03"
+        }
+      ]
     },
     {
       "id": "p-002",
