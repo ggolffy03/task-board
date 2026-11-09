@@ -1,18 +1,18 @@
 {
-  "updated": "2026-11-05",
+  "updated": "2026-11-09",
   "currency": "บาท",
-  "net_worth": 2658.53,
+  "net_worth": 2306.53,
   "wallets": [
     {
       "id": "w-1",
       "name": "MAKE by KBank",
-      "balance": 412.0,
+      "balance": 265.0,
       "note": "บัญชีหลัก"
     },
     {
       "id": "w-2",
       "name": "KPLUS",
-      "balance": 2090.0,
+      "balance": 1885.0,
       "note": "พร้อมใช้"
     },
     {
@@ -35,7 +35,7 @@
     },
     {
       "name": "Need",
-      "balance": 268.0
+      "balance": 121.0
     },
     {
       "name": "แมว",
@@ -117,13 +117,58 @@
   "insight": "เดือนนี้รายจ่ายสูงกว่ารายรับ โฟกัสที่การเก็บเงินสำรองฉุกเฉินก่อนเริ่มลงทุน",
   "transactions": [
     {
+      "date": "2026-11-08",
+      "type": "จ่าย",
+      "category": "อื่นๆ",
+      "item": "กัญชา",
+      "amount": 130.0,
+      "wallet": "KPLUS",
+      "id": "tx-1"
+    },
+    {
+      "date": "2026-11-07",
+      "type": "จ่าย",
+      "category": "อื่นๆ",
+      "item": "กัญชา",
+      "amount": 57.0,
+      "wallet": "MAKE: Need",
+      "id": "tx-2"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "จ่าย",
+      "category": "อาหาร",
+      "item": "ข้าว",
+      "amount": 60.0,
+      "wallet": "MAKE: Need",
+      "id": "tx-3"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "จ่าย",
+      "category": "ขนม/ของกิน",
+      "item": "ขนม",
+      "amount": 30.0,
+      "wallet": "MAKE: Need",
+      "id": "tx-4"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "จ่าย",
+      "category": "เดินทาง",
+      "item": "ค่านั่ง Bolt (รอบสอง)",
+      "amount": 75.0,
+      "wallet": "KPLUS",
+      "id": "tx-5"
+    },
+    {
       "date": "2026-11-05",
       "type": "จ่าย",
       "category": "ซอฟต์แวร์/บริการ",
       "item": "ค่า Deepseek API",
       "amount": 200.0,
       "wallet": "MAKE: Need",
-      "id": "tx-1"
+      "id": "tx-6"
     },
     {
       "date": "2026-11-05",
@@ -132,7 +177,7 @@
       "item": "กัญชา",
       "amount": 67.0,
       "wallet": "MAKE: Need",
-      "id": "tx-2"
+      "id": "tx-7"
     },
     {
       "date": "2026-11-05",
@@ -141,7 +186,7 @@
       "item": "โกโก้",
       "amount": 45.0,
       "wallet": "MAKE: Need",
-      "id": "tx-3"
+      "id": "tx-8"
     },
     {
       "date": "2026-11-04",
@@ -150,7 +195,7 @@
       "item": "ChatGPT รายเดือน",
       "amount": 723.47,
       "wallet": "ทรูมันนี่",
-      "id": "tx-4"
+      "id": "tx-9"
     },
     {
       "date": "2026-11-04",
@@ -159,7 +204,7 @@
       "item": "ขนม",
       "amount": 229.0,
       "wallet": "ทรูมันนี่",
-      "id": "tx-5"
+      "id": "tx-10"
     },
     {
       "date": "2026-11-04",
@@ -168,7 +213,7 @@
       "item": "iCloud รายเดือน",
       "amount": 99.0,
       "wallet": "ทรูมันนี่",
-      "id": "tx-6"
+      "id": "tx-11"
     },
     {
       "date": "2026-11-04",
@@ -177,7 +222,7 @@
       "item": "น้ำมันมอเตอร์ไซค์ (R15M)",
       "amount": 390.0,
       "wallet": "MAKE: Need",
-      "id": "tx-7"
+      "id": "tx-12"
     },
     {
       "date": "2026-11-04",
@@ -186,7 +231,7 @@
       "item": "โกโก้",
       "amount": 25.0,
       "wallet": "MAKE: Need",
-      "id": "tx-8"
+      "id": "tx-13"
     },
     {
       "date": "2026-11-04",
@@ -195,7 +240,7 @@
       "item": "โกโก้",
       "amount": 30.0,
       "wallet": "MAKE: Cashbox",
-      "id": "tx-9"
+      "id": "tx-14"
     },
     {
       "date": "2026-11-04",
@@ -204,7 +249,7 @@
       "item": "ขนม",
       "amount": 20.0,
       "wallet": "KPLUS",
-      "id": "tx-10"
+      "id": "tx-15"
     },
     {
       "date": "2026-11-04",
@@ -213,7 +258,7 @@
       "item": "ข้าว",
       "amount": 75.0,
       "wallet": "KPLUS",
-      "id": "tx-11"
+      "id": "tx-16"
     },
     {
       "date": "2026-11-04",
@@ -222,7 +267,7 @@
       "item": "ค่านั่ง Bolt",
       "amount": 60.0,
       "wallet": "KPLUS",
-      "id": "tx-12"
+      "id": "tx-17"
     },
     {
       "date": "2026-11-04",
@@ -231,7 +276,7 @@
       "item": "จากป๊า",
       "amount": 3000.0,
       "wallet": "KPLUS",
-      "id": "tx-13"
+      "id": "tx-18"
     },
     {
       "date": "2026-11-03",
@@ -240,7 +285,7 @@
       "item": "ครอฟเฟิล",
       "amount": 20.0,
       "wallet": "MAKE: Cashbox",
-      "id": "tx-14"
+      "id": "tx-19"
     },
     {
       "date": "2026-11-03",
@@ -249,7 +294,7 @@
       "item": "โกโก้",
       "amount": 25.0,
       "wallet": "MAKE: Cashbox",
-      "id": "tx-15"
+      "id": "tx-20"
     },
     {
       "date": "2026-11-03",
@@ -258,10 +303,10 @@
       "item": "ยาดม น้ำ หมากฝรั่ง",
       "amount": 80.0,
       "wallet": "ทรูมันนี่",
-      "id": "tx-16"
+      "id": "tx-21"
     },
     {
-      "id": "tx-17",
+      "id": "tx-22",
       "date": "2026-11-03",
       "type": "จ่าย",
       "category": "อื่นๆ",
@@ -270,7 +315,7 @@
       "wallet": "MAKE: Cashbox"
     },
     {
-      "id": "tx-18",
+      "id": "tx-23",
       "date": "2026-11-02",
       "type": "จ่าย",
       "category": "อาหาร",
@@ -279,7 +324,7 @@
       "wallet": "MAKE: Cashbox"
     },
     {
-      "id": "tx-19",
+      "id": "tx-24",
       "date": "2026-11-02",
       "type": "จ่าย",
       "category": "อาหาร",
@@ -288,7 +333,7 @@
       "wallet": "ทรูมันนี่"
     },
     {
-      "id": "tx-20",
+      "id": "tx-25",
       "date": "2026-11-01",
       "type": "จ่าย",
       "category": "อื่นๆ",
@@ -297,7 +342,7 @@
       "wallet": "MAKE: Cashbox"
     },
     {
-      "id": "tx-21",
+      "id": "tx-26",
       "date": "2026-10-31",
       "type": "จ่าย",
       "category": "แมว",
@@ -306,7 +351,7 @@
       "wallet": "MAKE: แมว"
     },
     {
-      "id": "tx-22",
+      "id": "tx-27",
       "date": "2026-10-31",
       "type": "จ่าย",
       "category": "แมว",
@@ -315,7 +360,7 @@
       "wallet": "MAKE: แมว"
     },
     {
-      "id": "tx-23",
+      "id": "tx-28",
       "date": "2026-10-30",
       "type": "จ่าย",
       "category": "อาหาร",
@@ -324,7 +369,7 @@
       "wallet": "MAKE: Need"
     },
     {
-      "id": "tx-24",
+      "id": "tx-29",
       "date": "2026-10-29",
       "type": "จ่าย",
       "category": "ส่วนตัว",
@@ -333,7 +378,7 @@
       "wallet": "MAKE: Cashbox"
     },
     {
-      "id": "tx-25",
+      "id": "tx-30",
       "date": "2026-10-28",
       "type": "จ่าย",
       "category": "ช้อปปิ้ง",
@@ -342,7 +387,7 @@
       "wallet": "MAKE: Cashbox"
     },
     {
-      "id": "tx-26",
+      "id": "tx-31",
       "date": "2026-10-26",
       "type": "รับ",
       "category": "เงินสนับสนุน",
@@ -351,7 +396,7 @@
       "wallet": ""
     },
     {
-      "id": "tx-27",
+      "id": "tx-32",
       "date": "2026-10-23",
       "type": "จ่าย",
       "category": "ซอฟต์แวร์/บริการ",
